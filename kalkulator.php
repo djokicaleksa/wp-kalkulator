@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once (plugin_dir_path(__FILE__) . 'kalkulator-custom-post-type.php');
 require_once (plugin_dir_path(__FILE__) . 'kalkulator-fields.php');
 require_once(plugin_dir_path(__FILE__) . 'kalkulator-short-code.php');
-
+require_once(plugin_dir_path(__FILE__) . 'kalkulator-settings.php');
 
 function dj_admin_enqueue_scripts() {
 	global $pagenow, $typenow;
@@ -33,6 +33,7 @@ function dj_admin_enqueue_scripts() {
 
 		wp_register_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
 		wp_enqueue_style('prefix_bootstrap');
+		wp_enqueue_script('dynamic-form', plugins_url( 'js/dynamic-form.js', __FILE__ ), array( 'jquery'), '154848', true );
 
 	}
 
@@ -43,6 +44,8 @@ function dj_admin_enqueue_scripts() {
 		wp_register_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
 		wp_enqueue_style('prefix_bootstrap');
 
+		wp_enqueue_script('dynamic-form', plugins_url( 'js/dynamic-form.js', __FILE__ ), array( 'jquery'), '154848', true );
+
 	}
 
 	if ( $pagenow =='edit.php' && $typenow == 'kalkulator') {
@@ -51,6 +54,8 @@ function dj_admin_enqueue_scripts() {
 
 		wp_register_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
 		wp_enqueue_style('prefix_bootstrap');
+
+		wp_enqueue_script('dynamic-form', plugins_url( 'js/dynamic-form.js', __FILE__ ), array( 'jquery', 'bootstrap'), '154848', true );
 	}
 
 
@@ -60,9 +65,12 @@ add_action( 'admin_enqueue_scripts', 'dj_admin_enqueue_scripts' );
 
 function dj_front_enqueruer_scripts(){
 	wp_enqueue_script('jquery');
+	wp_enqueue_style( 'dj-custom-css', plugins_url( 'css/custom.css', __FILE__ ) );
 	wp_register_script('data-tables-js', '//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js');
 	wp_enqueue_script('data-tables-js', ['jquery']);
 	wp_enqueue_script('searchable-table', plugins_url( 'js/searchable-table.js', __FILE__ ), array( 'jquery', 'data-tables-js' ), '20150204', true );
+	wp_enqueue_script('kalkulator-front', plugins_url( 'js/kalkulator-front.js', __FILE__ ), array( 'jquery'), '20171223', true );
+
 }
 
 add_action('wp_enqueue_scripts', 'dj_front_enqueruer_scripts');

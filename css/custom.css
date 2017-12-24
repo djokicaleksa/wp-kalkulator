@@ -1,3 +1,38 @@
 body{
 	background-color: #f1f1f1 !important;
 }
+
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+
+.wrapper {
+    width: 500px;
+    border: 1px solid black;
+    overflow: hidden; /* will contain if #first is longer than #second */
+}
+.first {
+    width: 300px;
+    float:left; /* add this */
+    border: 1px solid red;
+}
+.second {
+    border: 1px solid green;
+    overflow: hidden; /* if you don't want #second to wrap below #first */
+}
