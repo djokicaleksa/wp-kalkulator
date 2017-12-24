@@ -16,11 +16,53 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
+function parse_unicode($string){
+	$chars = [
+		"U+0160" => "Š",
+		"U0160" => "Š",
+		"u0160" => "Š",
+
+		"U+0161" => "š",
+		"U0161" => "š",
+		"u0161" => "š",
+
+		"U+017D" => "Ž",
+		"U017D" => "Ž",
+		"u017D" => "Ž",
+		"u017d" => "Ž",
+
+		"U+017E" => "ž",
+		"U017E" => "ž",
+		"u017E" => "ž",
+		"u017e" => "ž",
+
+		"U+0110" => "Đ",
+		"U0110" => "Đ",
+		"u0110" => "Đ",
+
+		"U+0111" => "đ",
+		"U0111" => "đ",
+		"u0111" => "đ",
+
+	];
+	foreach ($chars as $find => $replace) {
+		$string = str_replace($find, $replace, $string);
+	}
+
+	return $string;
+}
 
 
 require_once (plugin_dir_path(__FILE__) . 'kalkulator-custom-post-type.php');
 require_once (plugin_dir_path(__FILE__) . 'kalkulator-fields.php');
 require_once(plugin_dir_path(__FILE__) . 'kalkulator-short-code.php');
+
+
+require_once(plugin_dir_path(__FILE__) . 'libs/dompdf-master/lib/html5lib/Parser.php');
+// require_once(plugin_dir_path(__FILE__) . 'libs/dompdf-master/lib/php-font-lib/src/FontLib/Autoloader.php');
+// require_once(plugin_dir_path(__FILE__) . 'libs/dompdf-master/lib/php-svg-lib/src/autoload.php');
+require_once(plugin_dir_path(__FILE__) . 'libs/dompdf-master/src/Autoloader.php');
+Dompdf\Autoloader::register();
 require_once(plugin_dir_path(__FILE__) . 'kalkulator-settings.php');
 
 function dj_admin_enqueue_scripts() {
@@ -70,6 +112,7 @@ function dj_front_enqueruer_scripts(){
 	wp_enqueue_script('data-tables-js', ['jquery']);
 	wp_enqueue_script('searchable-table', plugins_url( 'js/searchable-table.js', __FILE__ ), array( 'jquery', 'data-tables-js' ), '20150204', true );
 	wp_enqueue_script('kalkulator-front', plugins_url( 'js/kalkulator-front.js', __FILE__ ), array( 'jquery'), '20171223', true );
+	wp_enqueue_script('form-calculator', plugins_url( 'js/form-calculator.js', __FILE__ ), array( 'jquery'), '20171224', true );
 
 }
 

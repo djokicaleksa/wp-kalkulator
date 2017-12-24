@@ -2,6 +2,7 @@ $kf = jQuery.noConflict();
 
 $kf(document).ready(function(){
 	console.log('Radi front jqeyrt');
+	var i = 0;
 	$kf('.terapija').change(function(){
 
 		var name = $kf(this).parent().parent().find('#name').text();
@@ -19,9 +20,21 @@ $kf(document).ready(function(){
 		}
 		var total = 0;
 		$kf('#total').empty();
+
+		$kf('#mini_calculator').append('<input type="hidden" name="item_'+i+'_name" value="'+name+'">');
+		$kf('#mini_calculator').append('<input type="hidden" name="item_'+i+'_desc" value="'+desc+'">');
+		$kf('#mini_calculator').append('<input type="hidden" name="item_'+i+'_price" value="'+price+'">');
+
 		$kf('#kalkulator_sc  td.price').each(function(index){
 			total += parseInt($kf(this).text()); 
 		});
 		$kf('#total').append(total + ' RSD');
+		i++;
+	});
+
+	$kf('#send').click(function(e){
+		e.preventDefault();
+		$kf('#mini_calculator').append('<input type="hidden" name="i" value="'+i+'">');
+		$kf('#mini_calculator').submit();
 	});
 });

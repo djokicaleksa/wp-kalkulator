@@ -1,5 +1,7 @@
 <?php
 
+use Dompdf\Dompdf;
+
 function dj_save_kalkulator_meta($post){
 	// if ( ! check_ajax_referer( 'wp-job-order', 'security' ) ) {
 	// 	return wp_send_json_error( 'Invalid Nonce' );
@@ -28,13 +30,65 @@ add_action('wp_ajax_get_kalulator_meta', 'dj_get_kalkulator_meta');
 
 
 function dj_submit_form(){
-
-	if(wp_mail($_POST['email'], 'Test', 'Test Poruka')){
-		wp_redirect(home_url());	
-	}else{
-		echo 'puza';
+	$dompdf = new Dompdf();
+	$i = $_POST['i'];
+	$items = [];
+	$email = $_POST['email'];
+	$admin_email = get_bloginfo("admin_email");
+	for($k = 0; $k < $i; $k++){
+		$items[$k]['name'] = $_POST['item_' . $k . '_name'];
+		$items[$k]['desc'] = $_POST['item_' . $k . '_desc'];
+		$items[$k]['price'] = $_POST['item_' . $k . '_price'];
 	}
-	
+
+	$subject = "Test mail";
+	$message = "Test Mail";
+
+	$html = '';
+
+	$html .= '<table>
+				<thead>
+					<tr>
+						<th>Naziv</th>
+						<th>Opis</th>
+						<th>Cena</th>
+					</tr>
+				</thead>
+				<tbody>';
+	$total =  0;
+	foreach ($items as $item) {
+		$html .= '<tr>
+					<td>'.$item['name'].'</td>
+					<td>'.$item['desc'].'</td>
+					<td>'.$item['price'].'</td>
+				  </tr>';
+				  $total += $item['price'];
+	}			
+
+	$html .= "<tr>
+				<td>".$email."</td>
+				<td>".$admin_email."</td>
+				<td>".$total."</td>
+			</tr>	
+			</tbody>
+			</table>";
+	// echo $html;
+	$dompdf->loadHtml($html);
+
+	// (Optional) Setup the paper size and orientation
+	$dompdf->setPaper('A4', 'landscape');
+
+	// Render the HTML as PDF
+	$dompdf->render();
+
+	$pdf = $dompdf->output();
+
+	wp_mail($email, $subject, $message, '', ['pdf'=>$pdf]);
+	wp_mail($admin_email, $subject, $message, '', ['pdf'=>$pdf]);
+
+
+	// Output the generated PDF to Browser
+	// return $dompdf->stream();
 }
 
 

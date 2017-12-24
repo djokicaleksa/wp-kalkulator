@@ -9,8 +9,11 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 
 	$post_meta_items = get_post_meta( (int) $content, 'items');
 
-	$items = json_decode($post_meta_items[0]);
-	$items = json_decode($items, true);
+
+	if(isset($post_meta_items[0])){
+
+		$items = json_decode($post_meta_items[0]);
+		$items = json_decode($items, true);
 
 	?>
 	
@@ -40,7 +43,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 								<tr>
 									<td></td>
 									<td></td>
-									<td><?php echo  wp_kses_decode_entities($item1_key);?></td>
+									<td><?php echo  parse_unicode($item1_key);?></td>
 									<td></td>
 									<td style="display: none;" ></td>
 								</tr>
@@ -65,6 +68,9 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 			        </tbody>
 			    </table>
 	<?php
+	}else{
+		echo esc_attr(__("Kalkulator nema podataka."));
+	}
 }
 
 add_shortcode('kalkulator_table_sc', 'dj_kalkulator_table_shortcode');
@@ -90,11 +96,11 @@ function dj_kalkulator_shortcode($atts, $content = null){
 
 		    </tbody>
 		</table>
-		<form method="POST" action="<?php echo admin_url( 'admin.php' ); ?>">
+		<form method="POST" id="mini_calculator" action="<?php echo admin_url( 'admin.php' ); ?>">
 			<label for="email">Vaša e-mail adresa</label>
 			<input type="email" name="email" placehodler="Vasa e-mail adresa">
 			<input type="hidden" name="action" value="dj_submit_form" />
-			<button type="submit" class="btn btn-lg btn-primary btn-block">Posalji</button>
+			<button type="submit" id="send" class="btn btn-lg btn-primary btn-block">Posalji</button>
 		</form>
 	<?php
 }
