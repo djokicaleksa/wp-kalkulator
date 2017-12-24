@@ -25,3 +25,17 @@ function dj_get_kalkulator_meta(){
 }
 
 add_action('wp_ajax_get_kalulator_meta', 'dj_get_kalkulator_meta');
+
+
+function dj_submit_form(){
+
+	if(wp_mail($_POST['email'], 'Test', 'Test Poruka')){
+		wp_redirect(home_url());	
+	}else{
+		echo 'puza';
+	}
+	
+}
+
+
+add_action('admin_action_dj_submit_form', 'dj_submit_form');

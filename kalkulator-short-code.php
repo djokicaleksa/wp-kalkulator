@@ -75,7 +75,7 @@ add_shortcode('kalkulator_table_sc', 'dj_kalkulator_table_shortcode');
 
 function dj_kalkulator_shortcode($atts, $content = null){
 	?>
-		<table id="example" class="display" width="100%" cellspacing="0">
+		<table id="kalkulator_sc" class="display" width="100%" cellspacing="0">
 		    <thead>
 		        <tr>
 		            <th>Naziv</th>
@@ -85,15 +85,20 @@ function dj_kalkulator_shortcode($atts, $content = null){
 		    </thead>
 		    <tfoot>
 		        <tr>
-		            <th>Naziv</th>
-		            <th>Opis</th>
-		            <th>Cena</th>
+		            <th></th>
+		            <th>Ukupno</th>
+		            <th id="total"></th>
 		        </tr>
 		    </tfoot>
 		    <tbody id="table-body">
 
 		    </tbody>
 		</table>
+		<form method="POST" action="<?php echo admin_url( 'admin.php' ); ?>">
+			<input type="email" name="email" placehodler="Vasa e-mail adresa">
+			<input type="hidden" name="action" value="dj_submit_form" />
+			<button type="submit" class="btn btn-lg btn-primary btn-block">Posalji</button>
+		</form>
 	<?php
 }
 
