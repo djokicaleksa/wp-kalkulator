@@ -19,7 +19,7 @@ add_action('wp_ajax_save_kalkulator_meta', 'dj_save_kalkulator_meta');
 function dj_get_kalkulator_meta(){
 	$kalkulator_id = (int) $_GET['kalkulator_id'];
 	
-	$post_meta_items = get_post_meta(10, 'items');
+	$post_meta_items = get_post_meta($kalkulator_id, 'items');
 	return wp_send_json(json_decode($post_meta_items[0], true));
 	
 }

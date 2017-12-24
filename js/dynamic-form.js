@@ -10,7 +10,6 @@ $jq(document).ready(function(){
     //         'X-CSRF-TOKEN': $jq('meta[name="csrf-token"]').attr('content')
     //     }
     // });
-
     //Ucitavanje menija
     var kalkulator_id = $jq('#kalkulator_id').val();
     $jq.ajax({
@@ -19,11 +18,12 @@ $jq(document).ready(function(){
         dataType: "json",
         data: {action: 'get_kalulator_meta',kalkulator_id:kalkulator_id},
         success: function (data) {
-            if(data != 404){
+            if(data !== null){
                 menu = JSON.parse(data);
-                // populateMenu(menu);
                 populateMenuModal(menu);
             }
+                
+
         },
         error: function (data) {
             console.log('Error:', data);
