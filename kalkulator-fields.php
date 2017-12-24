@@ -1,53 +1,39 @@
 <?php
 
-function dj_add_custom_metabox() {
+function dj_add_custom_items_metabox() {
 	add_meta_box(
 			'dj_meta',
 			'Stavke',
-			'dj_meta_callback',
+			'dj_meta_custom_items_callback',
 			'kalkulator',
 			'normal',
 			'high'
 		);
 }
 
-add_action( 'add_meta_boxes', 'dj_add_custom_metabox' );
+add_action( 'add_meta_boxes', 'dj_add_custom_items_metabox' );
 
-function dj_meta_callback( $kalkulator ){
+function dj_meta_custom_items_callback( $kalkulator ){
 	$dj_kalkulator_meta = get_post_meta($kalkulator->ID);
 
 	?>
-<!-- 		<form>
-		  <div class="form-group">
-		    <label for="exampleInputEmail1">Email address</label>
-		    <input type="text" class="form-control" name="email[]" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="<?php echo $dj_kalkulator_meta['email'][0][0]?>">
-		    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-		  </div>
-		  <div class="form-group">
-		    <label for="exampleInputPassword1">Password</label>
-		    <input type="text" name="email[]" class="form-control" id="exampleInputPassword1" placeholder="Password" value="<?php echo $dj_kalkulator_meta['email'][0][1]?>">
-		  </div>
-		  <div class="form-check">
-		    <label class="form-check-label">
-		      <input type="checkbox" class="form-check-input">
-		      Check me out
-		    </label>
-		  </div>
-		  <button type="submit" class="btn btn-primary">Submit</button>
-		</form> -->
+
 		<div id="" class="">
         <div class="">
             <!-- Modal content-->
             <div class="content">
                 <div class="header">
                     <button type="button" class="close">&times;</button>
-                    <h4 class="modal-title">Izmeni meni</h4>
+                    <h4 class="modal-title">Izmeni stavke kalkulatora</h4>
                 </div>
                 <div class="body">
-                    <input type="text" placeholder="Naziv nove kategorije" class="form-control" id="kategorija">
+                	<div class="form-group">
+                    	<input type="text" placeholder="Naziv nove kategorije" class="form-control" id="kategorija">
+                    </div>
                     <input type="hidden" name="kalkulator_id" id="kalkulator_id" value="<?php echo $kalkulator->ID; ?>">
-                    <button class="btn btn-add" id="add_cat" type="button">Dodaj kategoriju</button>
-
+					<div class="form-group">
+                    	<button class="btn btn-add" id="add_cat" type="button">Dodaj kategoriju</button>
+                    </div>
                     <div id="menu"></div>
 
 
@@ -56,7 +42,9 @@ function dj_meta_callback( $kalkulator ){
                     
                 </div>
                 <div class="footer">
-                    <button type="button" class="btn btn-primary btn-lg btn-block" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Obrađuje" id="saveMenu">Sačuvaj</button>
+                	<div class="form-group">
+                    	<button type="button" class="btn btn-primary btn-lg btn-block" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Obrađuje" id="saveMenu">Sačuvaj</button>
+                    </div>
                 </div>
             </div>
 

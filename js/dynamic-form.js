@@ -85,6 +85,9 @@ $jq(document).ready(function(){
                 '                                        </div>\n' +
                 '                                        <div class="form-group">\n' +
                 '                                            <input type="text" placeholder="Cena u RSD" class="form-control cena_stavke" id="cena_stavke">\n' +
+                '                                        </div>\n' +
+                '                                        <div class="form-group">\n' +
+                '                                            <input type="text" placeholder="Može se pretražiti po..."  data-toggle="tooltip" title="Upišite reči po kojima će ova stavka moći da se nadje u pretrazi" class="form-control searchable_by" id="searchable_by">\n' +
                 '                                            <input type="hidden" class="kategorija" value="'+kategorija+'">\n' +
                 '                                        </div>\n' +
                 '                                        <button class="btn btn-add add_item" id="add_item" type="button">Dodaj stavku</button>\n' +
@@ -105,6 +108,7 @@ $jq(document).ready(function(){
         naziv = $jq(this).parent().find('.naziv_stavke').val();
         opis = $jq(this).parent().find('.opis_stavke').val();
         cena = $jq(this).parent().find('.cena_stavke').val();
+        searchable_by = $jq(this).parent().find('.searchable_by').val();
         kategorija = $jq(this).parent().find('.kategorija').val();
 
         $jq(this).parent().parent().parent().find('.tbody').append('' +
@@ -125,11 +129,13 @@ $jq(document).ready(function(){
         $jq(this).parent().find('.cena_stavke').val("");
         $jq(this).parent().find('.opis_stavke').val("");
         $jq(this).parent().find('.naziv_stavke').val("");
+        $jq(this).parent().find('.searchable_by').val("");
 
         menu[kategorija].Stavke.push({
             Naziv: naziv,
             Opis: opis,
-            Cena: cena
+            Cena: cena,
+            searchable_by: searchable_by
         });
 
     });
@@ -253,6 +259,9 @@ function populateMenuModal(json){
             '                                        </div>\n' +
             '                                        <div class="form-group">\n' +
             '                                            <input type="text" placeholder="Cena u RSD" class="form-control cena_stavke" id="cena_stavke">\n' +
+            '                                        </div>\n' +
+            '                                        <div class="form-group">\n' +
+            '                                            <input type="text" placeholder="Može se pretražiti po..."  data-toggle="tooltip" title="Upišite reči po kojima će ova stavka moći da se nadje u pretrazi" class="form-control searchable_by" id="searchable_by">\n' +
             '                                            <input type="hidden" class="kategorija" value="'+kategorija+'">\n' +
             '                                        </div>\n' +
             '                                        <button class="btn btn-add add_item" id="add_item" type="button">Dodaj stavku</button>\n' +

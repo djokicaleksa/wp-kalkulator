@@ -14,8 +14,6 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 
 	?>
 	
-		<div class="">
-			<div class="">
 				<table id="example" class="display" width="100%" cellspacing="0">
 		        <thead>
 		            <tr>
@@ -23,6 +21,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		                <th>Naziv</th>
 		                <th>Opis</th>
 		                <th>Cena</th>
+		                <th style="display: none;" ></th>
 		            </tr>
 		        </thead>
 		        <tfoot>
@@ -31,6 +30,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		                <th>Naziv</th>
 		                <th>Opis</th>
 		                <th>Cena</th>
+		                <th style="display: none;" ></th>
 		            </tr>
 		        </tfoot>
 		        <tbody>
@@ -40,8 +40,9 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 								<tr>
 									<td></td>
 									<td></td>
-									<td><?php echo $item1_key;?></td>
+									<td><?php echo  wp_kses_decode_entities($item1_key);?></td>
 									<td></td>
+									<td style="display: none;" ></td>
 								</tr>
 						<?php
 
@@ -53,6 +54,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 											<td id="name"><?php echo $item3['Naziv']; ?></td>
 											<td id="desc"><?php echo $item3['Opis']; ?></td>
 											<td id="price"><?php echo $item3['Cena']; ?></td>
+											<td style="display: none;" id="seachable_by"><?php echo $item3['searchable_by']; ?></td>
 										</tr>	
 								<?php
 									}
@@ -62,12 +64,6 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 			            ?>
 			        </tbody>
 			    </table>
-		    <div>
-		    <div class="">
-		    	
-		    </div>
-	    </div>
-    
 	<?php
 }
 
@@ -95,6 +91,7 @@ function dj_kalkulator_shortcode($atts, $content = null){
 		    </tbody>
 		</table>
 		<form method="POST" action="<?php echo admin_url( 'admin.php' ); ?>">
+			<label for="email">Vaša e-mail adresa</label>
 			<input type="email" name="email" placehodler="Vasa e-mail adresa">
 			<input type="hidden" name="action" value="dj_submit_form" />
 			<button type="submit" class="btn btn-lg btn-primary btn-block">Posalji</button>
