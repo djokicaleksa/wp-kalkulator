@@ -67,7 +67,7 @@ $jq(document).ready(function(){
                 '                                <table class="table table-striped">\n' +
                 '                                    <thead>\n' +
                 '                                        <tr class="border-bottom-warning border-solid">\n' +
-                '                                            <th colspan="2"> Naziv jela <span class="pull-right">Cena</span></th>\n' +
+                '                                            <th colspan="2"> Naziv <span class="pull-right">Cena</span></th>\n' +
                 '                                        </tr>\n' +
                 '                                    </thead>\n' +
                 '                                    <tbody class="tbody">\n' +

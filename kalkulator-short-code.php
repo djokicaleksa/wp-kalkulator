@@ -22,7 +22,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		            <tr>
 		            	<th></th>
 		                <th>Naziv</th>
-		                <th>Opis</th>
+		                <th  style="display: none;">Opis</th>
 		                <th>Cena</th>
 		                <th style="display: none;" ></th>
 		            </tr>
@@ -31,7 +31,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		            <tr>
 		            	<th></th>
 		                <th>Naziv</th>
-		                <th>Opis</th>
+		                <th  style="display: none;">Opis</th>
 		                <th>Cena</th>
 		                <th style="display: none;" ></th>
 		            </tr>
@@ -42,7 +42,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 						?>
 								<tr>
 									<td></td>
-									<td></td>
+									<td  style="display: none;"></td>
 									<td><?php echo  parse_unicode($item1_key);?></td>
 									<td></td>
 									<td style="display: none;" ></td>
@@ -55,7 +55,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 										<tr>
 											<td><input type="checkbox" class="terapija" name="terapija[]"></td>
 											<td id="name"><?php echo $item3['Naziv']; ?></td>
-											<td id="desc"><?php echo $item3['Opis']; ?></td>
+											<td style="display: none;" id="desc"><?php echo $item3['Opis']; ?></td>
 											<td id="price"><?php echo $item3['Cena']; ?></td>
 											<td style="display: none;" id="seachable_by"><?php echo $item3['searchable_by']; ?></td>
 										</tr>	
@@ -66,6 +66,9 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 							}
 			            ?>
 			        </tbody>
+					<div id="description_field">
+			    		<p></p>
+			    	</div>
 			    </table>
 	<?php
 	}else{

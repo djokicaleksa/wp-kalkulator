@@ -10,7 +10,10 @@ $kf(document).ready(function(){
 		var price = $kf(this).parent().parent().find('#price').text();
 
 		if($kf(this).is(':checked')){
-			$kf("#table-body").append('<tr><td>'+name+'</td><td>'+desc+'</td><td class="price">'+price+'</td></tr>');
+			$kf("#table-body").append('<tr><td>'+name+'</td><td class="price">'+price+'</td></tr>');
+			console.log('desc ' + desc);
+			$kf('#description_field p').html(desc);
+
 		}else{
 			var tableRow = $kf('#kalkulator_sc td').filter(function(){
 				return $kf(this).text() == name;

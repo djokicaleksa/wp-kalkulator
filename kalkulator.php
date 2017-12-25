@@ -52,15 +52,16 @@ function parse_unicode($string){
 	return $string;
 }
 
+require_once(plugin_dir_path(__FILE__) . 'kalkulator-setup-tables.php');
+
+//init ili register_activation_hook
+add_action( 'init', 'dj_setup_database');
 
 require_once (plugin_dir_path(__FILE__) . 'kalkulator-custom-post-type.php');
 require_once (plugin_dir_path(__FILE__) . 'kalkulator-fields.php');
 require_once(plugin_dir_path(__FILE__) . 'kalkulator-short-code.php');
 
-
 require_once(plugin_dir_path(__FILE__) . 'libs/dompdf-master/lib/html5lib/Parser.php');
-// require_once(plugin_dir_path(__FILE__) . 'libs/dompdf-master/lib/php-font-lib/src/FontLib/Autoloader.php');
-// require_once(plugin_dir_path(__FILE__) . 'libs/dompdf-master/lib/php-svg-lib/src/autoload.php');
 require_once(plugin_dir_path(__FILE__) . 'libs/dompdf-master/src/Autoloader.php');
 Dompdf\Autoloader::register();
 require_once(plugin_dir_path(__FILE__) . 'kalkulator-settings.php');
@@ -69,6 +70,13 @@ function dj_admin_enqueue_scripts() {
 	global $pagenow, $typenow;
 
 	if ( $typenow == 'kalkulator') {
+
+		wp_enqueue_script('limits', plugins_url( 'js/limits.js', __FILE__ ), array('dj-select2', 'jquery'), '124578', true );
+		
+		wp_enqueue_script('dj-select2', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js');
+
+		wp_enqueue_style('dj-select2', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css');
+
 		wp_enqueue_style( 'dj-custom-css', plugins_url( 'css/custom.css', __FILE__ ) );
 		wp_register_script('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
 		wp_enqueue_script('prefix_bootstrap');
@@ -79,26 +87,26 @@ function dj_admin_enqueue_scripts() {
 
 	}
 
-	if ( ($pagenow == 'post.php' || $pagenow == 'post-new.php') && $typenow == 'kalkulator' ) {
-		wp_register_script('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
-		wp_enqueue_script('prefix_bootstrap');
+	// if ( ($pagenow == 'post.php' || $pagenow == 'post-new.php') && $typenow == 'kalkulator' ) {
+	// 	wp_register_script('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
+	// 	wp_enqueue_script('prefix_bootstrap');
 
-		wp_register_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
-		wp_enqueue_style('prefix_bootstrap');
+	// 	wp_register_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
+	// 	wp_enqueue_style('prefix_bootstrap');
 
-		wp_enqueue_script('dynamic-form', plugins_url( 'js/dynamic-form.js', __FILE__ ), array( 'jquery'), '154848', true );
+	// 	wp_enqueue_script('dynamic-form', plugins_url( 'js/dynamic-form.js', __FILE__ ), array( 'jquery'), '154848', true );
 
-	}
+	// }
 
-	if ( $pagenow =='edit.php' && $typenow == 'kalkulator') {
-					wp_register_script('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
-		wp_enqueue_script('prefix_bootstrap');
+	// if ( $pagenow =='edit.php' && $typenow == 'kalkulator') {
+	// 				wp_register_script('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
+	// 	wp_enqueue_script('prefix_bootstrap');
 
-		wp_register_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
-		wp_enqueue_style('prefix_bootstrap');
+	// 	wp_register_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
+	// 	wp_enqueue_style('prefix_bootstrap');
 
-		wp_enqueue_script('dynamic-form', plugins_url( 'js/dynamic-form.js', __FILE__ ), array( 'jquery', 'bootstrap'), '154848', true );
-	}
+	// 	wp_enqueue_script('dynamic-form', plugins_url( 'js/dynamic-form.js', __FILE__ ), array( 'jquery', 'bootstrap'), '154848', true );
+	// }
 
 
 }
