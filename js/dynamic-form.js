@@ -1,16 +1,10 @@
 var $jq = jQuery.noConflict();
-var kalkulator_id;
+var categories_number = -1;
 
 $jq(document).ready(function(){
     $jq('#menuModal').modal();
     menu = {};
 
-    // ajax token setup
-    // $jq.ajaxSetup({
-    //     headers: {
-    //         'X-CSRF-TOKEN': $jq('meta[name="csrf-token"]').attr('content')
-    //     }
-    // });
     //Ucitavanje menija
     kalkulator_id = $jq('#kalkulator_id').val();
     $jq.ajax({
@@ -22,6 +16,7 @@ $jq(document).ready(function(){
             if(data !== null){
                 menu = JSON.parse(data);
                 populateMenuModal(menu);
+                categories_number = Object.keys(menu).length;
             }
         },
 
@@ -32,8 +27,8 @@ $jq(document).ready(function(){
 
     // Brisanje kategorije
     $jq("#menu").on('click', 'button.cat_remove', function(){
-        $jq(this).parent().parent().parent().parent().remove();
-        var kategorija = $jq(this).parent().parent().parent().find('.kategorija').val();
+        $jq(this).parent().parent().parent().parent().parent().remove();
+        var kategorija = $jq(this).parent().parent().parent().parent().find('.kategorija').val();
         delete menu[kategorija];
     });
 
@@ -49,14 +44,16 @@ $jq(document).ready(function(){
     // Dodavanje kategorija
     var kategorija;
     $jq('#add_cat').on('click',function(){
+        categories_number++;
         kategorija = $jq('#kategorija').val();
         if(kategorija == ""){
             alert('Popunite naziv kategorije');
         }else {
             menu[kategorija] = {};
             menu[kategorija].Stavke = [];
+            menu[kategorija].order = categories_number;
 
-            $jq('#menu').append('<li>' +
+            $jq('#menu').append('<li id="'+kategorija+'">' +
                 '<div class="panel-body">\n' +
                 '                        <div class="row ">\n' +
                 '                        <div class="col-md-3">\n' +
@@ -180,6 +177,7 @@ $jq(document).ready(function(){
 
     //Cuvanje menija
     $jq('#saveMenu').on('click', function(e){
+        console.log(menu);
         var kalkulator_id = $jq('#kalkulator_id').val();
         $jq('#saveMenu').button('loading');
     
@@ -269,7 +267,7 @@ function populateMenu(json){
 function populateMenuModal(json){
     for(var kategorija in json){
         var kategorija_id = spojiNazivKategorije(kategorija);
-        $jq('#menu').append('<li>' +
+        $jq('#menu').append('<li id="'+kategorija+'">' +
             '<div class="panel-body">\n' +
             '                        <div class="row ">\n' +
             '                        <div class="col-md-3">\n' +
@@ -298,8 +296,7 @@ function populateMenuModal(json){
             '                                        </tr>\n' +
             '                                    </thead>\n' +
             '                                    <tbody class="tbody">\n' +
-            '                                        \n' +
-            '                                   <input type="hidden" class="kategorija" value="'+kategorija+'">\n'+
+            '                                       <input type="hidden" class="kategorija" value="'+kategorija+'">\n'+
             '                                    </tbody>'+
             '                                </table>\n' +
             '                                <div class="container-fluid item_input_fields">\n' +
@@ -330,8 +327,7 @@ function populateMenuModal(json){
             for(var i = 0; i < json[kategorija][stavke].length; i++){
                 $jq('#'+kategorija_id).append('');
                 $jq('.kategorija').each(function(index){
-                    if($jq(this).val() == kategorija && $jq(this).parent().prop('nodeName') == 'TBODY'){
-
+                    if($jq(this).val() == kategorija && $jq(this).parent().prop('nodeName') == 'TBODY'){    
 
                         $jq(this).parent().append(
                             '<tr>'+
