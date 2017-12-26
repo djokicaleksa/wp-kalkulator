@@ -21,7 +21,7 @@ function dj_shortcode_callback(){
             'post_type' 		=> 'kalkulator',
             'post_status'       => 'publish',
     	);
-	$kalkulatori = new WP_Query( $args );
+	$kalkulatori = get_posts($args);
 
 	?>
 	<div class="container">
@@ -43,13 +43,13 @@ function dj_shortcode_callback(){
                     </tr>
                 </thead>
                 <tbody>
-                	<?php while($kalkulatori->have_posts()) :?>
+                	<?php foreach ($kalkulatori as $kalkulator) :?>
 	                    <tr>
-	                    	<td><?php get_the_title($kalkulatori->post->id)?></td>
-	                    	<td>[kalkulator_table_sc]<?php $kalkulatori->post->id ?>[/kalkulator_table_sc]</td>
-	                    	<td>[kalkulator_sc]<?php $kalkulatori->post->id ?>[/kalkulator_sc]</td>
+	                    	<td><?php echo $kalkulator->post_title; ?></td>
+	                    	<td>[kalkulator_table_sc]<?php echo $kalkulator->ID ?>[/kalkulator_table_sc]</td>
+	                    	<td>[kalkulator_sc]<?php echo $kalkulator->ID ?>[/kalkulator_sc]</td>
 	                    </tr>   
-	                <?php endwhile;?>    
+	                <?php endforeach;?>
                 </tbody>
             </table>
         </div>
@@ -181,6 +181,31 @@ function dj_get_kalkulator_meta(){
 
 add_action('wp_ajax_get_kalulator_meta', 'dj_get_kalkulator_meta');
 
+
+function dj_edit_category_calculator(){
+	$old_name = $_POST['old_name'];
+	$new_name = $_POST['new_name'];
+	$kalkulator_id = $_POST['kalkulator_id'];
+
+	$kalkulator_id = (int) $_POST['kalkulator_id'];
+
+	$post_meta_items = get_post_meta($kalkulator_id, 'items');
+	$items = json_decode($post_meta_items[0]);
+	$items = json_decode($items, true);
+	
+
+	
+	$items[$new_name] = $items[$old_name];
+	unset($items[$old_name]);
+	
+	$save_items = addslashes((string)json_encode(json_encode($items)));
+	update_post_meta($kalkulator_id, 'items', $save_items);
+
+	$post_meta_items2 = get_post_meta($kalkulator_id, 'items');
+	return wp_send_json(json_decode($post_meta_items2[0], true));
+}
+
+add_action('wp_ajax_edit_category', 'dj_edit_category_calculator');
 
 function dj_submit_form(){
 	$dompdf = new Dompdf();

@@ -12,7 +12,7 @@
 function kalkulator_register_post_type() {
 
         $singular = 'Kalkulator';
-        $plural = 'Kalkluatori';
+        $plural = 'Kalkulatori';
 
         $labels = [
                 'name'                  => $plural,

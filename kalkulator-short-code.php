@@ -84,13 +84,13 @@ function dj_kalkulator_shortcode($atts, $content = null){
 		    <thead>
 		        <tr>
 		            <th>Naziv</th>
-		            <th>Opis</th>
+		            <th style="display: none;">Opis</th>
 		            <th>Cena</th>
 		         </tr>
 		    </thead>
 		    <tfoot>
 		        <tr>
-		            <th></th>
+		            <th style="display: none;"></th>
 		            <th>Ukupno</th>
 		            <th id="total"></th>
 		        </tr>

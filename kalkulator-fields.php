@@ -34,8 +34,9 @@ function dj_meta_custom_items_callback( $kalkulator ){
 					<div class="form-group">
                     	<button class="btn btn-add" id="add_cat" type="button">Dodaj kategoriju</button>
                     </div>
-                    <div id="menu"></div>
+                    <div ></div>
 
+                    <ul id="menu"></ul>
 
 
                     <br>
