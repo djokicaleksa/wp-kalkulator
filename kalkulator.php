@@ -126,3 +126,10 @@ function dj_front_enqueruer_scripts(){
 }
 
 add_action('wp_enqueue_scripts', 'dj_front_enqueruer_scripts');
+
+     
+
+function dj_set_content_type(){
+    return "text/html";
+}
+add_filter( 'wp_mail_content_type','dj_set_content_type' );
