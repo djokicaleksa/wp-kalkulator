@@ -173,7 +173,7 @@ $jq(document).ready(function(){
             Opis: opis,
             Cena: cena,
             searchable_by: searchable_by,
-            ogranicenja: ogranicenja_stavke
+            ogranicenja: ogranicenja
         });
     });
 
