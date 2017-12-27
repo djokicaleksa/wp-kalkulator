@@ -63,7 +63,7 @@ $jq(document).ready(function(){
                 '                                   </h3>'+ 
                 '                             </div> '+
                 '                              <div class="cat_edit_form inline" style="display:none">'+
-                '                               <input class="old_cat_name" type="hidden" value="'+kategorija+'" class="form-control"> '+
+                '                               <input class="old_cat_name" type="hidden" value="'+unicodeReplace(kategorija)+'" class="form-control"> '+
                 '                               <input class="cat_name" type="text" value="'+kategorija+'" class="form-control"><a class="save_cat_change"><span class="dashicons dashicons-yes"></span></a>'+
                 '                             </div>'+
                 '                        </div>\n' +
