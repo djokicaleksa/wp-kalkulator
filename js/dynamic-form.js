@@ -1,6 +1,7 @@
 var $jq = jQuery.noConflict();
 
 $jq(document).ready(function(){
+
     $jq('#menuModal').modal();
     menu = {};
     //Ucitavanje menija 
@@ -15,6 +16,7 @@ $jq(document).ready(function(){
                 menu = JSON.parse(data);
                 populateMenuModal(menu);
                 $jq("td:empty").remove();
+                console.log($jq("th:empty"));
                 categories_number = Object.keys(menu).length;
             }
         },
@@ -53,57 +55,57 @@ $jq(document).ready(function(){
             menu[kategorija].Stavke = [];
 
             $jq('#menu').append(
-                '<div class="panel-body">\n' +
-                '                        <div class="row ">\n' +
-                '                        <div class="col-md-2">\n' +
+                '<div class="panel-body">' +
+                '                        <div class="row ">' +
+                '                        <div class="col-md-2">' +
                 '                            <div class="cat_show inline">' +
                 '                                   <h3 class="cat_name">'+unicodeReplace(kategorija)+
                 '                                       <a class="edit_cat" type="button"><span class="dashicons dashicons-edit"></span></a>'+
-                '                                       <button class="cat_remove btn btn-sm btn-rounded btn-danger">X</button>\n' +
+                '                                       <button class="cat_remove btn btn-sm btn-rounded btn-danger">X</button>' +
                 '                                   </h3>'+ 
                 '                             </div> '+
                 '                              <div class="cat_edit_form inline" style="display:none">'+
                 '                               <input class="old_cat_name" type="hidden" value="'+unicodeReplace(kategorija)+'" class="form-control"> '+
-                '                               <input class="cat_name" type="text" value="'+kategorija+'" class="form-control"><a class="save_cat_change"><span class="dashicons dashicons-yes"></span></a>'+
+                '                               <input class="cat_name" type="text" value="'+unicodeReplace(kategorija)+'" class="form-control"><a class="save_cat_change"><span class="dashicons dashicons-yes"></span></a>'+
                 '                             </div>'+
-                '                        </div>\n' +
-                '                            <div class="col-md-10">\n' +
-                '                            <div class=" table-responsive">\n' +
-                '                                <table class="table table-striped">\n' +
-                '                                    <thead>\n' +
-                '                                        <tr class="border-bottom-warning border-solid">\n' +
-                '                                            <th colspan="2"> Naziv <span class="pull-right">Cena</span></th>\n' +
-                '                                        </tr>\n' +
-                '                                    </thead>\n' +
-                '                                    <tbody class="tbody">\n' +
-                '                                        \n' +
-                '                                   <input type="hidden" class="kategorija" value="'+kategorija+'">\n'+
+                '                        </div>' +
+                '                            <div class="col-md-10">' +
+                '                            <div class=" table-responsive">' +
+                '                                <table class="table table-striped">' +
+                '                                    <thead>' +
+                '                                        <tr class="border-bottom-warning border-solid">' +
+                '                                            <th colspan="2"> Naziv <span class="pull-right">Cena</span></th>' +
+                '                                        </tr>' +
+                '                                    </thead>' +
+                '                                    <tbody class="tbody">' +
+                '                                        ' +
+                '                                   <input type="hidden" class="kategorija" value="'+kategorija+'">'+
                 '                                    </tbody>'+
-                '                                </table>\n' +
-                '                                <div class="container-fluid item_input_fields">\n' +
-                '                                    <form class="form-inline">\n' +
-                '                                        <div class="form-group">\n' +
-                '                                            <input type="text" placeholder="Naziv stavke" class="form-control naziv_stavke" id="naziv_stavke">\n' +
-                '                                        </div>\n' +
-                '                                        <div class="form-group">\n' +
-                '                                            <input type="text" placeholder="Opis stavke" class="form-control opis_stavke" id="opis_stavke">\n' +
-                '                                        </div>\n' +
-                '                                        <div class="form-group">\n' +
-                '                                            <input type="text" placeholder="Cena u RSD" class="form-control cena_stavke" id="cena_stavke">\n' +
-                '                                        </div>\n' +
-                '                                        <div class="form-group">\n' +
-                '                                            <input type="text" placeholder="Može se pretražiti po..."  data-toggle="tooltip" title="Upišite reči po kojima će ova stavka moći da se nadje u pretrazi" class="form-control searchable_by" id="searchable_by">\n' +
-                '                                            <input type="hidden" class="kategorija" value="'+kategorija+'">\n' +
-                '                                        </div>\n' +
+                '                                </table>' +
+                '                                <div class="container-fluid item_input_fields">' +
+                '                                    <form class="form-inline">' +
+                '                                        <div class="form-group">' +
+                '                                            <input type="text" placeholder="Naziv stavke" class="form-control naziv_stavke" id="naziv_stavke">' +
+                '                                        </div>' +
+                '                                        <div class="form-group">' +
+                '                                            <input type="text" placeholder="Opis stavke" class="form-control opis_stavke" id="opis_stavke">' +
+                '                                        </div>' +
+                '                                        <div class="form-group">' +
+                '                                            <input type="text" placeholder="Cena u RSD" class="form-control cena_stavke" id="cena_stavke">' +
+                '                                        </div>' +
+                '                                        <div class="form-group">' +
+                '                                            <input type="text" placeholder="Može se pretražiti po..."  data-toggle="tooltip" title="Upišite reči po kojima će ova stavka moći da se nadje u pretrazi" class="form-control searchable_by" id="searchable_by">' +
+                '                                            <input type="hidden" class="kategorija" value="'+kategorija+'">' +
+                '                                        </div>' +
                 '                                        <div class="form-group">'+
                 '                                             <input type="text" placeholder="Ograničenja" id="ogranicenja_stavke" class="form-control ogranicenja_stavke">'+
                 '                                       </div>'+
-                '                                        <button class="btn btn-add add_item" id="add_item" type="button">Dodaj stavku</button>\n' +
-                '                                    </form>\n' +
-                '                                </div>\n' +
-                '                            </div>\n' +
-                '                            </div>\n' +
-                '                        </div>\n' +
+                '                                        <button class="btn btn-add add_item" id="add_item" type="button">Dodaj stavku</button>' +
+                '                                    </form>' +
+                '                                </div>' +
+                '                            </div>' +
+                '                            </div>' +
+                '                        </div>' +
                 '                    </div>');
             $jq('#kategorija').val("");
         }
@@ -133,7 +135,7 @@ $jq(document).ready(function(){
         var edit = $jq(this).parent().parent().parent().find('.cat_edit_form');
 
         h3.find('h3').html(new_cat_name  + '<a class="edit_cat" type="button"><span class="dashicons dashicons-edit"></span></a>'+
-                                            '<button class="cat_remove btn btn-sm btn-rounded btn-danger">X</button>\n');
+                                            '<button class="cat_remove btn btn-sm btn-rounded btn-danger">X</button>');
 
         edit.hide();
         h3.show();
@@ -155,11 +157,11 @@ $jq(document).ready(function(){
 
         $jq(this).parent().parent().parent().find('.tbody').append(
                 '<tr>'+
-                    '<td>'+naziv+'<td>'+
-                    '<td>'+opis+'<td>'+
-                    '<td>'+cena+'<td>'+
-                    '<td>'+searchable_by+'<td>'+
-                    '<td>'+ogranicenja+'<td>'+                                  
+                    '<td>'+naziv+'</td>'+
+                    '<td>'+opis+'</td>'+
+                    '<td>'+cena+'</td>'+
+                    '<td>'+searchable_by+'</td>'+
+                    '<td>'+ogranicenja+'</td>'+                                  
                     '<td>'+
                         '<button class="pull-right item_remove btn btn-sm btn-rounded">X</button>'+
                         '<a class="edit_cat" type="button"><span class="dashicons dashicons-edit"></span></a>'+
@@ -212,167 +214,7 @@ $jq(document).ready(function(){
         // $jq('#menu').append("<input type='hidden' name='items' value='"+JSON.stringify(menu)+"' />");
     });
 
-$jq("td:empty").remove();
-});
-
-
-function removeFromJson(json, id, category)
-{
-    for(var i = 0; i<json[category].Stavke.length; i++){
-        if(json[category].Stavke[i] != null) {
-            if (json[category].Stavke[i].id == id) {
-                json[category].Stavke.splice(i,1);
-            }
-        }
-    }
-    return json;
-}
-
-// Popunjava mani sa podacima iz json-fajla
-function populateMenu(json){
-    for(var kategorija in json){
-        var kategorija_id = spojiNazivKategorije(kategorija);
-        $jq('#menu').append('' +
-            '<div class="row mt-20">\n' +
-            '                                        <div class="col-md-3">\n' +
-            '                                            <h3>'+unicodeReplace(kategorija)+'</h3> </div>\n' +
-            '                                        <div class="col-md-9">\n' +
-            '                                            <div class=" table-responsive">\n' +
-            '                                                <table class="table table-striped">\n' +
-            '                                                    <thead>\n' +
-            '                                                    <tr class="border-bottom-warning border-solid">\n' +
-            '                                                        <th colspan="2"> Naziv jela <span class="pull-right">Cena</span></th>\n' +
-            '                                                    </tr>\n' +
-            '                                                    </thead>\n' +
-            '                                                    <tbody id="'+kategorija_id+'">\n' +
-            '                                                    </tbody>\n' +
-            '                                                </table>\n' +
-            '                                            </div>\n' +
-            '                                        </div>\n' +
-            '                                    </div>' +
-            '<div class="list-group-divider"></div>');
-
-        for(var stavke in json[kategorija]){
-            for(var i = 0; i < json[kategorija][stavke].length; i++){
-                $jq('#'+kategorija_id).append('' +
-                    '<tr>\n' +
-                    '                                                        <td>\n' +
-                    '                                                            <div class="media-left">\n' +
-                    '                                                                <div class="text-default text-semibold">'+json[kategorija][stavke][i].Naziv+'</div>\n' +
-                    '                                                                <div class="text-muted text-size-small">'+json[kategorija][stavke][i].Opis+'</div>\n' +
-                    '                                                            </div>\n' +
-                    '                                                        </td>\n' +
-                    '                                                        <td>\n' +
-                    '                                                            <div class="pull-right text-semibold">'+json[kategorija][stavke][i].Cena+' RSD</div>\n' +
-                    '                                                        </td>\n' +
-                    '                                                    </tr>');
-            }
-        }
-    }
-}
-
-function populateMenuModal(json){
-    for(var kategorija in json){
-        var kategorija_id = spojiNazivKategorije(kategorija);
-        $jq('#menu').append(
-            '<div class="panel-body">\n' +
-            '                        <div class="row ">\n' +
-            '                        <div class="col-md-2">\n' +
-                '                            <div class="cat_show inline">' +
-                '                                   <h3>'+unicodeReplace(kategorija)+
-                '                                       <a class="edit_cat" type="button"><span class="dashicons dashicons-edit"></span></a>'+
-                '                                       <button class="cat_remove btn btn-sm btn-rounded btn-danger">X</button>\n' +
-                '                                   </h3>'+ 
-                '                             </div> '+
-
-                '                              <div class="cat_edit_form inline" style="display:none">'+
-                '                               <input class="old_cat_name" type="hidden" value="'+kategorija+'" class="form-control"> '+
-                '                               <input class="cat_name" type="text" value="'+kategorija+'" class="form-control"><a class="save_cat_change"><span class="dashicons dashicons-yes"></span></a>'+
-                '                             </div>'+
-                '                        </div>\n' +
-            '                            <div class="col-md-10">\n' +
-            '                            <div class=" table-responsive">\n' +
-            '                                <table class="table table-striped">\n' +
-            '                                    <thead>\n' +
-            '                                        <tr class="border-bottom-warning border-solid">\n' +
-            '                                            <th>Naziv</th>'+
-            '                                            <th>Opis</th>\n' +
-            '                                            <th>Cena<th>\n' +
-            '                                            <th>Pretraživo po</th>\n' +
-            '                                            <th>Ograničenja</th>\n' +
-            '                                        </tr>\n' +
-            '                                    </thead>\n' +
-            '                                    <tbody class="tbody">\n' +
-            '                                       <input type="hidden" class="kategorija" value="'+kategorija+'">\n'+
-            '                                    </tbody>'+
-            '                                </table>\n' +
-            '                                <div class="container-fluid item_input_fields">\n' +
-            '                                    <form class="form-inline">\n' +
-            '                                        <div class="form-group">\n' +
-            '                                            <input type="text" placeholder="Naziv stavke" class="form-control naziv_stavke" id="naziv_stavke">\n' +
-            '                                        </div>\n' +
-            '                                        <div class="form-group">\n' +
-            '                                            <input type="text" placeholder="Opis stavke" class="form-control opis_stavke" id="opis_stavke">\n' +
-            '                                        </div>\n' +
-            '                                        <div class="form-group">\n' +
-            '                                            <input type="text" placeholder="Cena u RSD" class="form-control cena_stavke" id="cena_stavke">\n' +
-            '                                        </div>\n' +
-            '                                        <div class="form-group">\n' +
-            '                                            <input type="text" placeholder="Može se pretražiti po..."  data-toggle="tooltip" title="Upišite reči po kojima će ova stavka moći da se nadje u pretrazi" class="form-control searchable_by" id="searchable_by">\n' +
-            '                                            <input type="hidden" class="kategorija" value="'+kategorija+'">\n' +
-            '                                        </div>\n' +
-            '                                        <div class="form-group">'+
-            '                                             <input type="text" placeholder="Ograničenja" id="ogranicenja_stavke" class="ogranicenja_stavke orm-control">'+
-            '                                       </div>'+
-            '                                        <button class="btn btn-add add_item" id="add_item" type="button">Dodaj stavku</button>\n' +
-            '                                    </form>\n' +
-            '                                </div>\n' +
-            '                            </div>\n' +
-            '                            </div>\n' +
-            '                        </div>\n' +
-            '                    </div>');
-
-        for(var stavke in json[kategorija]){
-            for(var i = 0; i < json[kategorija][stavke].length; i++){
-                $jq('#'+kategorija_id).append('');
-                $jq('.kategorija').each(function(index){
-                    if($jq(this).val() == kategorija && $jq(this).parent().prop('nodeName') == 'TBODY'){    
-
-                        $jq(this).parent().append(
-                            '<tr>'+
-                                '<td>'+json[kategorija][stavke][i].Naziv+'<td>'+
-                                '<td>'+json[kategorija][stavke][i].Opis+'<td>'+
-                                '<td>'+json[kategorija][stavke][i].Cena+'<td>'+
-                                '<td>'+json[kategorija][stavke][i].searchable_by+'<td>'+
-                                '<td>'+json[kategorija][stavke][i].ogranicenja+'<td>'+
-                                '<td style="display:none;"><input class="item_id" type="hidden" value="'+json[kategorija][stavke][i].id+'"></td>'+                                
-                                '<td>'+
-                                    '<button class="pull-right item_remove btn btn-sm btn-rounded">X</button>'+
-                                    '<a class="edit_item" type="button"><span class="dashicons dashicons-edit"></span></a>'+
-                                '<td>'+
-                            '</tr>'+
-
-
-                            '<tr class="item_input" style="display:none;">'+
-                                '<td><input class="item_name" type="text" value="'+unicodeReplace(json[kategorija][stavke][i].Naziv)+'"></td>'+
-                                '<td><input class="item_desc" type="text" value="'+json[kategorija][stavke][i].Opis+'"></td>'+
-                                '<td><input class="item_price" type="text" value="'+json[kategorija][stavke][i].Cena+'"></td>'+
-                                '<td><input class="item_searchable" type="text" value="'+json[kategorija][stavke][i].searchable_by+'"></td>'+
-                                '<td><input class="item_ogranicenja" type="text" value="'+json[kategorija][stavke][i].ogranicenja+'"></td>'+
-                                '<td style="display:none;"><input class="item_id" type="hidden" value="'+json[kategorija][stavke][i].id+'"></td>'+
-                                '<td style="display:none;"><input class="item_cat" type="hidden" value="'+kategorija+'"></td>'+
-                                '<td><a class="save_item_change"><span class="dashicons dashicons-yes"></span></a></td>'+
-                            '</tr>'
-                            );
-                    }
-                });
-            }
-        }
-    }
-}
-
-
-$jq(document).on('click', '.edit_item', function(){
+    $jq(document).on('click', '.edit_item', function(){
     var row = $jq(this).parent().parent();
     var input_row = row.closest('tr').next('tr');
     row.hide();
@@ -416,6 +258,167 @@ $jq(document).on('click', '.save_item_change', function(){
 
     $jq("td:empty").remove();
 });
+
+
+$jq("td:empty").remove();
+});
+
+
+function removeFromJson(json, id, category)
+{
+    for(var i = 0; i<json[category].Stavke.length; i++){
+        if(json[category].Stavke[i] != null) {
+            if (json[category].Stavke[i].id == id) {
+                json[category].Stavke.splice(i,1);
+            }
+        }
+    }
+    return json;
+}
+
+// Popunjava mani sa podacima iz json-fajla
+function populateMenu(json){
+    for(var kategorija in json){
+        var kategorija_id = spojiNazivKategorije(kategorija);
+        $jq('#menu').append('' +
+            '<div class="row mt-20">' +
+            '                                        <div class="col-md-3">' +
+            '                                            <h3>'+unicodeReplace(kategorija)+'</h3> </div>' +
+            '                                        <div class="col-md-9">' +
+            '                                            <div class=" table-responsive">' +
+            '                                                <table class="table table-striped">' +
+            '                                                    <thead>' +
+            '                                                    <tr class="border-bottom-warning border-solid">' +
+            '                                                        <th colspan="2"> Naziv jela <span class="pull-right">Cena</span></th>' +
+            '                                                    </tr>' +
+            '                                                    </thead>' +
+            '                                                    <tbody id="'+kategorija_id+'">' +
+            '                                                    </tbody>' +
+            '                                                </table>' +
+            '                                            </div>' +
+            '                                        </div>' +
+            '                                    </div>' +
+            '<div class="list-group-divider"></div>');
+
+        for(var stavke in json[kategorija]){
+            for(var i = 0; i < json[kategorija][stavke].length; i++){
+                $jq('#'+kategorija_id).append('' +
+                    '<tr>' +
+                    '                                                        <td>' +
+                    '                                                            <div class="media-left">' +
+                    '                                                                <div class="text-default text-semibold">'+json[kategorija][stavke][i].Naziv+'</div>' +
+                    '                                                                <div class="text-muted text-size-small">'+json[kategorija][stavke][i].Opis+'</div>' +
+                    '                                                            </div>' +
+                    '                                                        </td>' +
+                    '                                                        <td>' +
+                    '                                                            <div class="pull-right text-semibold">'+json[kategorija][stavke][i].Cena+' RSD</div>' +
+                    '                                                        </td>' +
+                    '                                                    </tr>');
+            }
+        }
+    }
+}
+
+function populateMenuModal(json){
+    for(var kategorija in json){
+        var kategorija_id = spojiNazivKategorije(kategorija);
+        $jq('#menu').append(
+            '<div class="panel-body">' +
+            '                        <div class="row ">' +
+            '                        <div class="col-md-2">' +
+                '                            <div class="cat_show inline">' +
+                '                                   <h3>'+unicodeReplace(kategorija)+
+                '                                       <a class="edit_cat" type="button"><span class="dashicons dashicons-edit"></span></a>'+
+                '                                       <button class="cat_remove btn btn-sm btn-rounded btn-danger">X</button>' +
+                '                                   </h3>'+ 
+                '                             </div> '+
+
+                '                              <div class="cat_edit_form inline" style="display:none">'+
+                '                               <input class="old_cat_name" type="hidden" value="'+unicodeReplace(kategorija)+'" class="form-control"> '+
+                '                               <input class="cat_name" type="text" value="'+unicodeReplace(kategorija)+'" class="form-control"><a class="save_cat_change"><span class="dashicons dashicons-yes"></span></a>'+
+                '                             </div>'+
+                '                        </div>' +
+            '                            <div class="col-md-10">' +
+            '                            <div class=" table-responsive">' +
+            '                                <table class="table table-striped">' +
+            '                                    <thead>' +
+            '                                        <tr>' +
+            '                                            <th>Naziv</th>'+
+            '                                            <th>Opis</th>' +
+            '                                            <th>Cena</th>' +
+            '                                            <th>Pretraživo po</th>' +
+            '                                            <th>Ograničenja</th>' +
+            '                                        </tr>' +
+            '                                    </thead>' +
+            '                                    <tbody class="tbody">' +
+            '                                       <input type="hidden" class="kategorija" value="'+unicodeReplace(kategorija)+'">'+
+            '                                    </tbody>'+
+            '                                </table>' +
+            '                                <div class="container-fluid item_input_fields">' +
+            '                                    <form class="form-inline">' +
+            '                                        <div class="form-group">' +
+            '                                            <input type="text" placeholder="Naziv stavke" class="form-control naziv_stavke" id="naziv_stavke">' +
+            '                                        </div>' +
+            '                                        <div class="form-group">' +
+            '                                            <input type="text" placeholder="Opis stavke" class="form-control opis_stavke" id="opis_stavke">' +
+            '                                        </div>' +
+            '                                        <div class="form-group">' +
+            '                                            <input type="text" placeholder="Cena u RSD" class="form-control cena_stavke" id="cena_stavke">' +
+            '                                        </div>' +
+            '                                        <div class="form-group">' +
+            '                                            <input type="text" placeholder="Može se pretražiti po..."  data-toggle="tooltip" title="Upišite reči po kojima će ova stavka moći da se nadje u pretrazi" class="form-control searchable_by" id="searchable_by">' +
+            '                                            <input type="hidden" class="kategorija" value="'+kategorija+'">' +
+            '                                        </div>' +
+            '                                        <div class="form-group">'+
+            '                                             <input type="text" placeholder="Ograničenja" id="ogranicenja_stavke" class="ogranicenja_stavke orm-control">'+
+            '                                       </div>'+
+            '                                        <button class="btn btn-add add_item" id="add_item" type="button">Dodaj stavku</button>' +
+            '                                    </form>' +
+            '                                </div>' +
+            '                            </div>' +
+            '                            </div>' +
+            '                        </div>' +
+            '                    </div>');
+
+        for(var stavke in json[kategorija]){
+            for(var i = 0; i < json[kategorija][stavke].length; i++){
+                $jq('#'+kategorija_id).append('');
+                $jq('.kategorija').each(function(index){
+                    if($jq(this).val() == kategorija && $jq(this).parent().prop('nodeName') == 'TBODY'){    
+
+                        $jq(this).parent().append(
+                            '<tr>'+
+                                '<td>'+unicodeReplace(json[kategorija][stavke][i].Naziv)+'<td>'+
+                                '<td>'+unicodeReplace(json[kategorija][stavke][i].Opis)+'<td>'+
+                                '<td>'+unicodeReplace(json[kategorija][stavke][i].Cena)+'<td>'+
+                                '<td>'+unicodeReplace(json[kategorija][stavke][i].searchable_by)+'<td>'+
+                                '<td>'+unicodeReplace(json[kategorija][stavke][i].ogranicenja)+'<td>'+
+                                '<td style="display:none;"><input class="item_id" type="hidden" value="'+json[kategorija][stavke][i].id+'"></td>'+                                
+                                '<td>'+
+                                    '<button class="pull-right item_remove btn btn-sm btn-rounded">X</button>'+
+                                    '<a class="edit_item" type="button"><span class="dashicons dashicons-edit"></span></a>'+
+                                '<td>'+
+                            '</tr>'+
+
+
+                            '<tr class="item_input" style="display:none;">'+
+                                '<td><input class="item_name" type="text" value="'+unicodeReplace(json[kategorija][stavke][i].Naziv)+'"></td>'+
+                                '<td><input class="item_desc" type="text" value="'+unicodeReplace(json[kategorija][stavke][i].Opis)+'"></td>'+
+                                '<td><input class="item_price" type="text" value="'+unicodeReplace(json[kategorija][stavke][i].Cena)+'"></td>'+
+                                '<td><input class="item_searchable" type="text" value="'+unicodeReplace(json[kategorija][stavke][i].searchable_by)+'"></td>'+
+                                '<td><input class="item_ogranicenja" type="text" value="'+unicodeReplace(json[kategorija][stavke][i].ogranicenja)+'"></td>'+
+                                '<td style="display:none;"><input class="item_id" type="hidden" value="'+json[kategorija][stavke][i].id+'"></td>'+
+                                '<td style="display:none;"><input class="item_cat" type="hidden" value="'+kategorija+'"></td>'+
+                                '<td><a class="save_item_change"><span class="dashicons dashicons-yes"></span></a></td>'+
+                            '</tr>'
+                            );
+                    }
+                });
+            }
+        }
+    }
+}
+
 
 function spojiNazivKategorije(name){
     var array = name.split(" ");
@@ -485,7 +488,4 @@ function unicodeReplace(string){
     }
 
     return string;
-
-
-    $jq("td:empty").remove();
 }

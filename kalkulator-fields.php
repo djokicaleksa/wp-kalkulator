@@ -123,7 +123,7 @@ function dj_meta_custom_sort_callback($kalkulator){
 					foreach ($item1_value as $item2) {
 						if(!empty($item2)){
 							foreach ($item2 as $item3) {
-								echo '<li data-cat="'.$item1_key.'" id="'.$item3['id'].'">'.$item3['Naziv'].'</li>';
+								echo '<li data-cat="'.$item1_key.'" id="'.$item3['id'].'">'.parse_unicode($item3['Naziv']).'</li>';
 							}
 						}else{
 							echo 'Stavke nisu pronadjenje';
