@@ -58,53 +58,6 @@ function dj_shortcode_callback(){
 }
 
 
-function dj_add_limits_submenu_page(){
-		add_submenu_page( 
-			'edit.php?post_type=kalkulator', 
-			__( 'Sortiranje' ), 
-			__( 'Sortiranje' ), 
-			'manage_options', 
-			'kalkulator_limits', 
-			'limits_kalkulator_callback' 
-	);
-}
-
-add_action( 'admin_menu', 'dj_add_limits_submenu_page' );
-
-function limits_kalkulator_callback(){
-	?>
-		 <div class="container">
-		 <h2>Sortiranje</h2>
-		 <hr>
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                	<ul id="sortable">
-                		<li>Link</li>
-                		<li>Link</li>
-                		<li>Link</li>
-                		<li>Link</li>
-                			<ul id="">
-		                		<li>Link</li>
-		                		<li>Link</li>
-		                		<li>Link</li>
-		                		<li>Link</li>
-		                		<li>Link</li>
-		                		<li>Link</li>
-		                		<li>Link</li>
-                			</ul>
-                		<li>Link</li>
-                		<li>Link</li>
-                		<li>Link</li>
-                	</ul>
-                </div>
-            </div>
-        </div>
-    </div>     
-	<?php
-}
-
-
 function dj_save_kalkulator_meta($post){
 	// if ( ! check_ajax_referer( 'wp-job-order', 'security' ) ) {
 	// 	return wp_send_json_error( 'Invalid Nonce' );
@@ -113,6 +66,7 @@ function dj_save_kalkulator_meta($post){
 	// if ( ! current_user_can( 'manage_options' ) ) {
 	// 	return wp_send_json_error( 'You are not allow to do this.' );
 	// }
+
 	$kalkulator_id = $_POST['kalkulator_id'];
 
 	update_post_meta($kalkulator_id, 'items', json_encode($_POST['items']));
@@ -229,8 +183,8 @@ function dj_submit_form(){
 
 	$pdf = $dompdf->output();
 
-	// wp_mail($email, $subject, $message, '', ['pdf'=>$pdf]);
-	// wp_mail($admin_email, $subject, $message, '', ['pdf'=>$pdf]);
+	wp_mail($email, $subject, $html, '', ['pdf'=>$pdf]);
+	wp_mail($admin_email, $subject, $html, '', ['pdf'=>$pdf]);
 
 
 	//Output the generated PDF to Browser
