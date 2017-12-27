@@ -354,7 +354,7 @@ function populateMenuModal(json){
 
 
                             '<tr class="item_input" style="display:none;">'+
-                                '<td><input class="item_name" type="text" value="'+json[kategorija][stavke][i].Naziv+'"></td>'+
+                                '<td><input class="item_name" type="text" value="'+unicodeReplace(json[kategorija][stavke][i].Naziv)+'"></td>'+
                                 '<td><input class="item_desc" type="text" value="'+json[kategorija][stavke][i].Opis+'"></td>'+
                                 '<td><input class="item_price" type="text" value="'+json[kategorija][stavke][i].Cena+'"></td>'+
                                 '<td><input class="item_searchable" type="text" value="'+json[kategorija][stavke][i].searchable_by+'"></td>'+

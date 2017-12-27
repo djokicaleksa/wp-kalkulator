@@ -122,19 +122,19 @@ function dj_submit_form(){
 
 	for($k = 0; $k < $i; $k++){
 		if(isset($_POST['item_' . $k . '_name'])){
-			$items[$k]['name'] = $_POST['item_' . $k . '_name'];
+			$items[$k]['name'] = parse_unicode($_POST['item_' . $k . '_name']);
 		}
 
 		if(isset($_POST['item_' . $k . '_desc'])){
-			$items[$k]['price'] = $_POST['item_' . $k . '_price'];
+			$items[$k]['price'] = parse_unicode($_POST['item_' . $k . '_price']);
 		}
 
 		if(isset($_POST['item_' . $k . '_price'])){
-			$items[$k]['desc'] = $_POST['item_' . $k . '_desc'];
+			$items[$k]['desc'] = parse_unicode($_POST['item_' . $k . '_desc']);
 		}
 
 		if(isset($_POST['item_' . $k . '_restriction'])){
-			array_push($restrictions, $_POST['item_' . $k . '_restriction']);
+			array_push($restrictions, parse_unicode($_POST['item_' . $k . '_restriction']));
 		}
 		
 	}

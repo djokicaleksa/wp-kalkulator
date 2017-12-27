@@ -60,11 +60,11 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 										?>
 										<tr>
 											<td><input type="checkbox" class="terapija" name="terapija[]"></td>
-											<td id="name"><?php echo $item3['Naziv']; ?></td>
-											<td style="display: none;" id="desc"><?php echo $item3['Opis']; ?></td>
+											<td id="name"><?php echo parse_unicode($item3['Naziv']); ?></td>
+											<td style="display: none;" id="desc"><?php echo parse_unicode($item3['Opis']); ?></td>
 											<td id="price"><?php echo $item3['Cena']; ?></td>
-											<td style="display: none;" id="seachable_by"><?php echo $item3['searchable_by']; ?></td>
-											<td style="display: none;" id="ogranicenja"><?php echo $item3['ogranicenja']; ?></td>
+											<td style="display: none;" id="seachable_by"><?php echo parse_unicode($item3['searchable_by']); ?></td>
+											<td style="display: none;" id="ogranicenja"><?php echo parse_unicode($item3['ogranicenja']); ?></td>
 											<td style="display: none;" id="id"><?php echo $item3['id']; ?></td>
 										</tr>	
 								<?php
@@ -115,7 +115,7 @@ function dj_kalkulator_shortcode($atts, $content = null){
 		</table>
 
 		<div id="restrictions">
-			    	<h5>Ogranicenja</h5>
+			    	<h5>Ograničenja</h5>
 			    		<ul>
 			    			
 			    		</ul>
