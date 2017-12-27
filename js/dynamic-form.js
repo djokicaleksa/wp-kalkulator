@@ -1,5 +1,4 @@
 var $jq = jQuery.noConflict();
-var categories_number = -1;
 
 $jq(document).ready(function(){
     $jq('#menuModal').modal();
@@ -44,19 +43,17 @@ $jq(document).ready(function(){
     // Dodavanje kategorija
     var kategorija;
     $jq('#add_cat').on('click',function(){
-        categories_number++;
         kategorija = $jq('#kategorija').val();
         if(kategorija == ""){
             alert('Popunite naziv kategorije');
         }else {
             menu[kategorija] = {};
             menu[kategorija].Stavke = [];
-            menu[kategorija].order = categories_number;
 
-            $jq('#menu').append('<li id="'+kategorija+'">' +
+            $jq('#menu').append(
                 '<div class="panel-body">\n' +
                 '                        <div class="row ">\n' +
-                '                        <div class="col-md-3">\n' +
+                '                        <div class="col-md-2">\n' +
                 '                            <div class="cat_show inline">' +
                 '                                   <h3 class="cat_name">'+kategorija+
                 '                                       <a class="edit_cat" type="button"><span class="dashicons dashicons-edit"></span></a>'+
@@ -68,7 +65,7 @@ $jq(document).ready(function(){
                 '                               <input class="cat_name" type="text" value="'+kategorija+'" class="form-control"><a class="save_cat_change"><span class="dashicons dashicons-yes"></span></a>'+
                 '                             </div>'+
                 '                        </div>\n' +
-                '                            <div class="col-md-9">\n' +
+                '                            <div class="col-md-10">\n' +
                 '                            <div class=" table-responsive">\n' +
                 '                                <table class="table table-striped">\n' +
                 '                                    <thead>\n' +
@@ -96,14 +93,16 @@ $jq(document).ready(function(){
                 '                                            <input type="text" placeholder="Može se pretražiti po..."  data-toggle="tooltip" title="Upišite reči po kojima će ova stavka moći da se nadje u pretrazi" class="form-control searchable_by" id="searchable_by">\n' +
                 '                                            <input type="hidden" class="kategorija" value="'+kategorija+'">\n' +
                 '                                        </div>\n' +
+                '                                        <div class="form-group">'+
+                '                                             <input type="text" placeholder="Ograničenja" id="ogranicenja_stavke" class="form-control ogranicenja_stavke">'+
+                '                                       </div>'+
                 '                                        <button class="btn btn-add add_item" id="add_item" type="button">Dodaj stavku</button>\n' +
                 '                                    </form>\n' +
                 '                                </div>\n' +
                 '                            </div>\n' +
                 '                            </div>\n' +
                 '                        </div>\n' +
-                '                    </div>'+
-                '                   </li>');
+                '                    </div>');
             $jq('#kategorija').val("");
         }
     });
@@ -146,14 +145,15 @@ $jq(document).ready(function(){
         cena = $jq(this).parent().find('.cena_stavke').val();
         searchable_by = $jq(this).parent().find('.searchable_by').val();
         kategorija = $jq(this).parent().find('.kategorija').val();
-
+        ogranicenja = $jq(this).parent().find('.ogranicenja_stavke').val();
 
         $jq(this).parent().parent().parent().find('.tbody').append(
                 '<tr>'+
                     '<td>'+naziv+'<td>'+
                     '<td>'+opis+'<td>'+
                     '<td>'+cena+'<td>'+
-                    '<td>'+searchable_by+'<td>'+                                 
+                    '<td>'+searchable_by+'<td>'+
+                    '<td>'+ogranicenja+'<td>'+                                  
                     '<td>'+
                         '<button class="pull-right item_remove btn btn-sm btn-rounded">X</button>'+
                         '<a class="edit_cat" type="button"><span class="dashicons dashicons-edit"></span></a>'+
@@ -165,21 +165,22 @@ $jq(document).ready(function(){
         $jq(this).parent().find('.opis_stavke').val("");
         $jq(this).parent().find('.naziv_stavke').val("");
         $jq(this).parent().find('.searchable_by').val("");
+        $jq(this).parent().find('.ogranicenja_stavke').val("");
 
         menu[kategorija].Stavke.push({
             id: makeid(),
             Naziv: naziv,
             Opis: opis,
             Cena: cena,
-            searchable_by: searchable_by
+            searchable_by: searchable_by,
+            ogranicenja: ogranicenja_stavke
         });
     });
 
     //Cuvanje menija
-    $jq('#saveMenu').on('click', function(e){
-        console.log(menu);
+    $jq('.saveMenu').on('click', function(e){
         var kalkulator_id = $jq('#kalkulator_id').val();
-        $jq('#saveMenu').button('loading');
+        $jq('.saveMenu').button('loading');
     
         $jq.ajax({
             type: "POST",
@@ -195,7 +196,7 @@ $jq(document).ready(function(){
                 setTimeout(function(){
                 $jq('#saveMenu').button('reset');
                 $jq('#saveSuccessModal').modal('show');
-            }, 5000);
+            }, 2000);
                 
             },
             error: function (data) {
@@ -267,10 +268,10 @@ function populateMenu(json){
 function populateMenuModal(json){
     for(var kategorija in json){
         var kategorija_id = spojiNazivKategorije(kategorija);
-        $jq('#menu').append('<li id="'+kategorija+'">' +
+        $jq('#menu').append(
             '<div class="panel-body">\n' +
             '                        <div class="row ">\n' +
-            '                        <div class="col-md-3">\n' +
+            '                        <div class="col-md-2">\n' +
                 '                            <div class="cat_show inline">' +
                 '                                   <h3>'+kategorija+
                 '                                       <a class="edit_cat" type="button"><span class="dashicons dashicons-edit"></span></a>'+
@@ -283,7 +284,7 @@ function populateMenuModal(json){
                 '                               <input class="cat_name" type="text" value="'+kategorija+'" class="form-control"><a class="save_cat_change"><span class="dashicons dashicons-yes"></span></a>'+
                 '                             </div>'+
                 '                        </div>\n' +
-            '                            <div class="col-md-9">\n' +
+            '                            <div class="col-md-10">\n' +
             '                            <div class=" table-responsive">\n' +
             '                                <table class="table table-striped">\n' +
             '                                    <thead>\n' +
@@ -314,14 +315,16 @@ function populateMenuModal(json){
             '                                            <input type="text" placeholder="Može se pretražiti po..."  data-toggle="tooltip" title="Upišite reči po kojima će ova stavka moći da se nadje u pretrazi" class="form-control searchable_by" id="searchable_by">\n' +
             '                                            <input type="hidden" class="kategorija" value="'+kategorija+'">\n' +
             '                                        </div>\n' +
+            '                                        <div class="form-group">'+
+            '                                             <input type="text" placeholder="Ograničenja" id="ogranicenja_stavke" class="ogranicenja_stavke orm-control">'+
+            '                                       </div>'+
             '                                        <button class="btn btn-add add_item" id="add_item" type="button">Dodaj stavku</button>\n' +
             '                                    </form>\n' +
             '                                </div>\n' +
             '                            </div>\n' +
             '                            </div>\n' +
             '                        </div>\n' +
-            '                    </div>'+
-            '                   <li>');
+            '                    </div>');
 
         for(var stavke in json[kategorija]){
             for(var i = 0; i < json[kategorija][stavke].length; i++){
@@ -335,6 +338,7 @@ function populateMenuModal(json){
                                 '<td>'+json[kategorija][stavke][i].Opis+'<td>'+
                                 '<td>'+json[kategorija][stavke][i].Cena+'<td>'+
                                 '<td>'+json[kategorija][stavke][i].searchable_by+'<td>'+
+                                '<td>'+json[kategorija][stavke][i].ogranicenja+'<td>'+
                                 '<td style="display:none;"><input class="item_id" type="hidden" value="'+json[kategorija][stavke][i].id+'"></td>'+                                 
                                 '<td>'+
                                     '<button class="pull-right item_remove btn btn-sm btn-rounded">X</button>'+
@@ -348,6 +352,7 @@ function populateMenuModal(json){
                                 '<td><input class="item_desc" type="text" value="'+json[kategorija][stavke][i].Opis+'"></td>'+
                                 '<td><input class="item_price" type="text" value="'+json[kategorija][stavke][i].Cena+'"></td>'+
                                 '<td><input class="item_searchable" type="text" value="'+json[kategorija][stavke][i].searchable_by+'"></td>'+
+                                '<td><input class="item_ogranicenja" type="text" value="'+json[kategorija][stavke][i].ogranicenja+'"></td>'+
                                 '<td style="display:none;"><input class="item_id" type="hidden" value="'+json[kategorija][stavke][i].id+'"></td>'+
                                 '<td style="display:none;"><input class="item_cat" type="hidden" value="'+kategorija+'"></td>'+
                                 '<td><a class="save_item_change"><span class="dashicons dashicons-yes"></span></a></td>'+
@@ -380,18 +385,20 @@ $jq(document).on('click', '.save_item_change', function(){
     var desc = $jq(this).parent().parent().find('.item_desc').val();
     var price = $jq(this).parent().parent().find('.item_price').val();
     var searchable_by = $jq(this).parent().parent().find('.item_searchable').val();
+    var ogranicenja = $jq(this).parent().parent().find('.item_ogranicenja').val();
 
     menu[cat].Stavke
 
     for (var i = 0; i < menu[cat].Stavke.length; i++){
       // look for the entry with a matching `code` value
       if (menu[cat].Stavke[i].id == id){
-         console.log(menu[cat].Stavke[i]);
+
          menu[cat].Stavke[i].Naziv = name;
          menu[cat].Stavke[i].Opis = desc;
          menu[cat].Stavke[i].Cena = price;
          menu[cat].Stavke[i].searchable_by = searchable_by;
-         console.log(menu[cat].Stavke[i]);
+         menu[cat].Stavke[i].ogranicenja = ogranicenja;
+
          break;
       }
     }

@@ -84,7 +84,6 @@ function dj_admin_enqueue_scripts() {
 		wp_register_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
 		wp_enqueue_style('prefix_bootstrap');
 		wp_enqueue_script('dynamic-form', plugins_url( 'js/dynamic-form.js', __FILE__ ), array( 'jquery'), '154848', true );
-		
 		wp_enqueue_script( 'reorder-js', plugins_url( 'js/reorder.js', __FILE__ ), array( 'jquery', 'jquery-ui-sortable' ), '20150626', true );
 
 	}

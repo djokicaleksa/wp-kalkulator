@@ -7,7 +7,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		], $atts);
 	$post = get_post($atts['id']);
 
-	$post_meta_items = get_post_meta( (int) $content, 'items');
+	$post_meta_items = get_post_meta((int) $content, 'items');
 
 
 	if(isset($post_meta_items[0])){
@@ -25,6 +25,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		                <th  style="display: none;">Opis</th>
 		                <th>Cena</th>
 		                <th style="display: none;" ></th>
+		                <th style="display: none;" ></th>
 		            </tr>
 		        </thead>
 		        <tfoot>
@@ -33,6 +34,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		                <th>Naziv</th>
 		                <th  style="display: none;">Opis</th>
 		                <th>Cena</th>
+		                <th style="display: none;" ></th>
 		                <th style="display: none;" ></th>
 		            </tr>
 		        </tfoot>
@@ -46,6 +48,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 									<td><?php echo  parse_unicode($item1_key);?></td>
 									<td></td>
 									<td style="display: none;" ></td>
+									<td style="display: none;" ></td>
 								</tr>
 						<?php
 
@@ -58,6 +61,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 											<td style="display: none;" id="desc"><?php echo $item3['Opis']; ?></td>
 											<td id="price"><?php echo $item3['Cena']; ?></td>
 											<td style="display: none;" id="seachable_by"><?php echo $item3['searchable_by']; ?></td>
+											<td style="display: none;" id="ogranicenja"><?php echo $item3['ogranicenja']; ?></td>
 										</tr>	
 								<?php
 									}
@@ -69,6 +73,12 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 					<div id="description_field">
 			    		<p></p>
 			    	</div>
+<!-- 			    	<div id="restrictions">
+			    	<h5>Ogranicenja</h5>
+			    		<ul>
+			    			
+			    		</ul>
+			    	</div> -->
 			    </table>
 	<?php
 	}else{
@@ -99,6 +109,14 @@ function dj_kalkulator_shortcode($atts, $content = null){
 
 		    </tbody>
 		</table>
+
+		<div id="restrictions">
+			    	<h5>Ogranicenja</h5>
+			    		<ul>
+			    			
+			    		</ul>
+			    	</div>
+			    	
 		<form method="POST" id="mini_calculator" action="<?php echo admin_url( 'admin.php' ); ?>">
 			<label for="email">Vaša e-mail adresa</label>
 			<input type="email" name="email" placehodler="Vasa e-mail adresa">

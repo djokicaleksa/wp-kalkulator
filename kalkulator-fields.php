@@ -14,7 +14,6 @@ function dj_add_custom_items_metabox() {
 add_action( 'add_meta_boxes', 'dj_add_custom_items_metabox' );
 
 function dj_meta_custom_items_callback( $kalkulator ){
-	$dj_kalkulator_meta = get_post_meta($kalkulator->ID);
 
 	?>
 
@@ -44,7 +43,7 @@ function dj_meta_custom_items_callback( $kalkulator ){
                 </div>
                 <div class="footer">
                 	<div class="form-group">
-                    	<button type="button" class="btn btn-primary btn-lg btn-block" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Obrađuje" id="saveMenu">Sačuvaj</button>
+                    	<button type="button" class="btn btn-primary btn-lg btn-block saveMenu" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Obrađuje" id="saveMenu2">Sačuvaj</button>
                     </div>
                 </div>
             </div>
@@ -79,6 +78,70 @@ function dj_meta_custom_items_callback( $kalkulator ){
 		</div>
 	<?php
 } 
+
+
+function dj_add_custom_sort_metabox() {
+	add_meta_box(
+			'dj_meta_sort',
+			'Sortiranje',
+			'dj_meta_custom_sort_callback',
+			'kalkulator',
+			'normal',
+			'high'
+		);
+}
+
+add_action( 'add_meta_boxes', 'dj_add_custom_sort_metabox' );
+
+
+function dj_meta_custom_sort_callback($kalkulator){
+	$dj_kalkulator_meta = get_post_meta($kalkulator->ID, 'items');
+
+	if(isset($dj_kalkulator_meta[0])){
+
+		$items = json_decode($dj_kalkulator_meta[0]);
+		$items = json_decode($items, true);
+
+		?>
+		<div class="row">
+			<div class="col-md-4">
+			<h4>Kategorije</h4>
+				<ul id="sortable" class="sortable">
+		<?php
+		foreach($items as $item1_key => $item1_value){
+			echo '<li id="'.$item1_key.'">' . parse_unicode($item1_key) . '</li>';
+		}
+		?>
+				</ul>
+			</div>
+		<?php
+
+			foreach($items as $item1_key => $item1_value){
+					echo '<div class="col-md-4">';
+					echo '<h4>' . parse_unicode($item1_key) . '</h4>';
+					echo '<ul id="sortable2" class="sortable sortable2">';
+					foreach ($item1_value as $item2) {
+						if(!empty($item2)){
+							foreach ($item2 as $item3) {
+								echo '<li data-cat="'.$item1_key.'" id="'.$item3['id'].'">'.$item3['Naziv'].'</li>';
+							}
+						}else{
+							echo 'Stavke nisu pronadjenje';
+						}
+						
+
+					echo '</ul></div>';
+				}
+				
+			}
+
+
+		?>
+		</div>
+		<button type="button" class="btn btn-primary btn-lg btn-block saveMenu" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Obrađuje" id="saveMenu1">Sačuvaj</button>
+		<?php
+	}
+}
 
 function dj_meta_save($post_id){
 	// Checks save status
