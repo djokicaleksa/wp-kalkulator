@@ -121,10 +121,22 @@ function dj_submit_form(){
 	$restrictions = [];
 
 	for($k = 0; $k < $i; $k++){
-		$items[$k]['name'] = $_POST['item_' . $k . '_name'];
-		$items[$k]['desc'] = $_POST['item_' . $k . '_desc'];
-		$items[$k]['price'] = $_POST['item_' . $k . '_price'];
-		array_push($restrictions, $_POST['item_' . $k . '_restriction']);
+		if(isset($_POST['item_' . $k . '_name'])){
+			$items[$k]['name'] = $_POST['item_' . $k . '_name'];
+		}
+
+		if(isset($_POST['item_' . $k . '_desc'])){
+			$items[$k]['price'] = $_POST['item_' . $k . '_price'];
+		}
+
+		if(isset($_POST['item_' . $k . '_price'])){
+			$items[$k]['desc'] = $_POST['item_' . $k . '_desc'];
+		}
+
+		if(isset($_POST['item_' . $k . '_restriction'])){
+			array_push($restrictions, $_POST['item_' . $k . '_restriction']);
+		}
+		
 	}
 
 	$restrictions = array_unique($restrictions);
@@ -134,7 +146,8 @@ function dj_submit_form(){
 
 	$html = '';
 
-	$html .= '<table>
+	$html .= '
+			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>Naziv</th>
@@ -154,13 +167,12 @@ function dj_submit_form(){
 	}			
 
 	$html .= "<tr>
-				<td>".$email."</td>
-				<td>".$admin_email."</td>
+				<td>Ukupno</td>
+				<td></td>
 				<td>".$total."</td>
 			</tr>	
 			</tbody>
 			</table>";
-	// echo $html;
 	$html .= '<br>';
 	$html .= '<h4>Ogranicenja</h4>';
 	$html .= '<ul>';
@@ -170,13 +182,106 @@ function dj_submit_form(){
 	}
 
 	$html .= '</ul>';
-	// var_dump($html);
-	// return $html;
-			
-	$dompdf->loadHtml($html);
+
+	$pdf_html = '<!DOCTYPE html>
+	<html>
+		<head>
+		<style>
+			table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+table tr {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+  table caption {
+    font-size: 1.3em;
+  }
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  table td:before {
+    content: attr(aria-label);
+
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
+
+	.footer {
+	  position: absolute;
+	  right: 0;
+	  bottom: 0;
+	  left: 0;
+	  padding: 1rem;
+	}
+		</style>
+	</head>
+	<body>
+	<img src="'.plugin_dir_path(__FILE__).'images/memorandum_top" width="100%">
+	<div class="container">
+		'.$html.'
+	</div>	
+	<div class="footer">
+		<img src="'.plugin_dir_path(__FILE__).'images/memorandum_bot"
+		width="100%">
+	</div>
+	</body>
+	</html>';
+
+	// var_dump($pdf_html);
+
+	$dompdf->loadHtml($pdf_html);
 
 	// (Optional) Setup the paper size and orientation
-	$dompdf->setPaper('A4', 'landscape');
+	$dompdf->setPaper('A4', 'portrait');
 
 	// Render the HTML as PDF
 	$dompdf->render();
@@ -192,12 +297,14 @@ function dj_submit_form(){
 		'.$html.'
 	</body>
 	</html>';
+
 	
+
 	wp_mail($email, $subject, $mail_html, '', ['pdf'=>$pdf]);
 	wp_mail($admin_email, $subject, $mail_html, '', ['pdf'=>$pdf]);
 
 
-	//Output the generated PDF to Browser
+	// Output the generated PDF to Browser
 	return $dompdf->stream();
 }
 

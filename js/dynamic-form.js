@@ -3,8 +3,7 @@ var $jq = jQuery.noConflict();
 $jq(document).ready(function(){
     $jq('#menuModal').modal();
     menu = {};
-
-    //Ucitavanje menija
+    //Ucitavanje menija 
     kalkulator_id = $jq('#kalkulator_id').val();
     $jq.ajax({
         type: "GET",
@@ -15,6 +14,7 @@ $jq(document).ready(function(){
             if(data !== null){
                 menu = JSON.parse(data);
                 populateMenuModal(menu);
+                $jq("td:empty").remove();
                 categories_number = Object.keys(menu).length;
             }
         },
@@ -29,6 +29,7 @@ $jq(document).ready(function(){
         $jq(this).parent().parent().parent().parent().parent().remove();
         var kategorija = $jq(this).parent().parent().parent().parent().find('.kategorija').val();
         delete menu[kategorija];
+        $jq("td:empty").remove();
     });
 
     // Brisanje stavke
@@ -37,6 +38,7 @@ $jq(document).ready(function(){
         var id = $jq(this).parent().parent().find('.item_id').val();
         menu = removeFromJson(menu, id, kategorija);
         $jq(this).parent().parent().remove();
+        $jq("td:empty").remove();
     });
 
 
@@ -55,7 +57,7 @@ $jq(document).ready(function(){
                 '                        <div class="row ">\n' +
                 '                        <div class="col-md-2">\n' +
                 '                            <div class="cat_show inline">' +
-                '                                   <h3 class="cat_name">'+kategorija+
+                '                                   <h3 class="cat_name">'+unicodeReplace(kategorija)+
                 '                                       <a class="edit_cat" type="button"><span class="dashicons dashicons-edit"></span></a>'+
                 '                                       <button class="cat_remove btn btn-sm btn-rounded btn-danger">X</button>\n' +
                 '                                   </h3>'+ 
@@ -105,6 +107,8 @@ $jq(document).ready(function(){
                 '                    </div>');
             $jq('#kategorija').val("");
         }
+
+        $jq("td:empty").remove();
     });
 
     $jq(document).on('click', '.edit_cat', function(){
@@ -114,6 +118,7 @@ $jq(document).ready(function(){
         var edit = $jq(this).parent().parent().parent().find('.cat_edit_form');
         h3.hide();
         edit.show();
+        $jq("td:empty").remove();
 
     });
 
@@ -135,6 +140,7 @@ $jq(document).ready(function(){
 
         menu[new_cat_name] = menu[old_cat_name];
         delete menu[old_cat_name];
+        $jq("td:empty").remove();
     });
 
     //Dodavanje stavke
@@ -194,8 +200,8 @@ $jq(document).ready(function(){
             success: function (data) {
 
                 setTimeout(function(){
-                $jq('#saveMenu').button('reset');
-                $jq('#saveSuccessModal').modal('show');
+                    $jq('.saveMenu').button('reset');
+                    $jq('#saveSuccessModal').modal('show');
             }, 2000);
                 
             },
@@ -206,7 +212,7 @@ $jq(document).ready(function(){
         // $jq('#menu').append("<input type='hidden' name='items' value='"+JSON.stringify(menu)+"' />");
     });
 
-
+$jq("td:empty").remove();
 });
 
 
@@ -229,7 +235,7 @@ function populateMenu(json){
         $jq('#menu').append('' +
             '<div class="row mt-20">\n' +
             '                                        <div class="col-md-3">\n' +
-            '                                            <h3>'+kategorija+'</h3> </div>\n' +
+            '                                            <h3>'+unicodeReplace(kategorija)+'</h3> </div>\n' +
             '                                        <div class="col-md-9">\n' +
             '                                            <div class=" table-responsive">\n' +
             '                                                <table class="table table-striped">\n' +
@@ -273,7 +279,7 @@ function populateMenuModal(json){
             '                        <div class="row ">\n' +
             '                        <div class="col-md-2">\n' +
                 '                            <div class="cat_show inline">' +
-                '                                   <h3>'+kategorija+
+                '                                   <h3>'+unicodeReplace(kategorija)+
                 '                                       <a class="edit_cat" type="button"><span class="dashicons dashicons-edit"></span></a>'+
                 '                                       <button class="cat_remove btn btn-sm btn-rounded btn-danger">X</button>\n' +
                 '                                   </h3>'+ 
@@ -289,11 +295,11 @@ function populateMenuModal(json){
             '                                <table class="table table-striped">\n' +
             '                                    <thead>\n' +
             '                                        <tr class="border-bottom-warning border-solid">\n' +
-            '                                            <th> Naziv </th>'+
+            '                                            <th>Naziv</th>'+
             '                                            <th>Opis</th>\n' +
             '                                            <th>Cena<th>\n' +
             '                                            <th>Pretraživo po</th>\n' +
-            '                                            <th></th>\n' +
+            '                                            <th>Ograničenja</th>\n' +
             '                                        </tr>\n' +
             '                                    </thead>\n' +
             '                                    <tbody class="tbody">\n' +
@@ -339,7 +345,7 @@ function populateMenuModal(json){
                                 '<td>'+json[kategorija][stavke][i].Cena+'<td>'+
                                 '<td>'+json[kategorija][stavke][i].searchable_by+'<td>'+
                                 '<td>'+json[kategorija][stavke][i].ogranicenja+'<td>'+
-                                '<td style="display:none;"><input class="item_id" type="hidden" value="'+json[kategorija][stavke][i].id+'"></td>'+                                 
+                                '<td style="display:none;"><input class="item_id" type="hidden" value="'+json[kategorija][stavke][i].id+'"></td>'+                                
                                 '<td>'+
                                     '<button class="pull-right item_remove btn btn-sm btn-rounded">X</button>'+
                                     '<a class="edit_item" type="button"><span class="dashicons dashicons-edit"></span></a>'+
@@ -407,6 +413,8 @@ $jq(document).on('click', '.save_item_change', function(){
     row.show();
     $jq('#menu').empty();
     populateMenuModal(menu);
+
+    $jq("td:empty").remove();
 });
 
 function spojiNazivKategorije(name){
@@ -427,4 +435,57 @@ function makeid() {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
 
   return text;
+}
+
+
+function unicodeReplace(string){
+
+    var niz = {
+        "U+0160":"Š",
+        "U0160":"Š",
+        "u0160":"Š",
+
+        "U+0161":"š",
+        "U0161":"š",
+        "u0161":"š",
+
+        "U+017D":"Ž",
+        "U017D":"Ž",
+        "u017D":"Ž",
+        "u017d":"Ž",
+
+        "U+017E":"ž",
+        "U017E":"ž",
+        "u017E":"ž",
+        "u017e":"ž",
+
+        "U+0110":"Đ",
+        "U0110":"Đ",
+        "u0110":"Đ",
+
+        "U+0111":"đ",
+        "U0111":"đ",
+        "u0111":"đ",
+
+        "U+0106":"Ć",
+        "U0106":"Ć",
+        "u0106":"Ć",
+
+        "U+010D":"č",
+        "U010D":"č",
+        "u010d":"č",
+
+        "U+010C":"Č",
+        "U010C":"Č",
+        "u010c":"Č",
+    };
+
+    for(var item in niz){
+       string = string.replace(item, niz[item]);
+    }
+
+    return string;
+
+
+    $jq("td:empty").remove();
 }

@@ -26,6 +26,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		                <th>Cena</th>
 		                <th style="display: none;" ></th>
 		                <th style="display: none;" ></th>
+		                <th style="display: none;" ></th>
 		            </tr>
 		        </thead>
 		        <tfoot>
@@ -34,6 +35,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		                <th>Naziv</th>
 		                <th  style="display: none;">Opis</th>
 		                <th>Cena</th>
+		                <th style="display: none;" ></th>
 		                <th style="display: none;" ></th>
 		                <th style="display: none;" ></th>
 		            </tr>
@@ -49,6 +51,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 									<td></td>
 									<td style="display: none;" ></td>
 									<td style="display: none;" ></td>
+									<td style="display: none;" ></td>
 								</tr>
 						<?php
 
@@ -62,6 +65,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 											<td id="price"><?php echo $item3['Cena']; ?></td>
 											<td style="display: none;" id="seachable_by"><?php echo $item3['searchable_by']; ?></td>
 											<td style="display: none;" id="ogranicenja"><?php echo $item3['ogranicenja']; ?></td>
+											<td style="display: none;" id="id"><?php echo $item3['id']; ?></td>
 										</tr>	
 								<?php
 									}
