@@ -183,8 +183,18 @@ function dj_submit_form(){
 
 	$pdf = $dompdf->output();
 
-	wp_mail($email, $subject, $html, '', ['pdf'=>$pdf]);
-	wp_mail($admin_email, $subject, $html, '', ['pdf'=>$pdf]);
+	$mail_html = '<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		'.$html.'
+	</body>
+	</html>';
+	
+	wp_mail($email, $subject, $mail_html, '', ['pdf'=>$pdf]);
+	wp_mail($admin_email, $subject, $mail_html, '', ['pdf'=>$pdf]);
 
 
 	//Output the generated PDF to Browser
