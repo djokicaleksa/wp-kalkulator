@@ -74,7 +74,11 @@ $jq(document).ready(function(){
                 '                                <table class="table table-striped">' +
                 '                                    <thead>' +
                 '                                        <tr class="border-bottom-warning border-solid">' +
-                '                                            <th colspan="2"> Naziv <span class="pull-right">Cena</span></th>' +
+                '                                            <th>Naziv</th>'+
+                '                                            <th>Opis</th>' +
+                '                                            <th>Cena</th>' +
+                '                                            <th>Pretraživo po</th>' +
+                '                                            <th>Ograničenja</th>' +
                 '                                        </tr>' +
                 '                                    </thead>' +
                 '                                    <tbody class="tbody">' +
@@ -401,16 +405,16 @@ function populateMenuModal(json){
 
                         $jq(this).parent().append(
                             '<tr>'+
-                                '<td>'+unicodeReplace(json[kategorija][stavke][i].Naziv)+'<td>'+
-                                '<td>'+unicodeReplace(json[kategorija][stavke][i].Opis)+'<td>'+
-                                '<td>'+unicodeReplace(json[kategorija][stavke][i].Cena)+'<td>'+
-                                '<td>'+unicodeReplace(json[kategorija][stavke][i].searchable_by)+'<td>'+
-                                '<td>'+unicodeReplace(json[kategorija][stavke][i].ogranicenja)+'<td>'+
+                                '<td>'+unicodeReplace(json[kategorija][stavke][i].Naziv)+'</td>'+
+                                '<td>'+unicodeReplace(json[kategorija][stavke][i].Opis)+'</td>'+
+                                '<td>'+unicodeReplace(json[kategorija][stavke][i].Cena)+'</td>'+
+                                '<td>'+unicodeReplace(json[kategorija][stavke][i].searchable_by)+'</td>'+
+                                '<td>'+unicodeReplace(json[kategorija][stavke][i].ogranicenja)+'</td>'+
                                 '<td style="display:none;"><input class="item_id" type="hidden" value="'+json[kategorija][stavke][i].id+'"></td>'+                                
                                 '<td>'+
                                     '<button class="pull-right item_remove btn btn-sm btn-rounded">X</button>'+
                                     '<a class="edit_item" type="button"><span class="dashicons dashicons-edit"></span></a>'+
-                                '<td>'+
+                                '</td>'+
                             '</tr>'+
 
 
