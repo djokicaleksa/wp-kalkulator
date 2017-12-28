@@ -300,8 +300,8 @@ table th {
 
 	
 
-	wp_mail($email, $subject, $mail_html, '', ['pdf'=>$pdf]);
-	wp_mail($admin_email, $subject, $mail_html, '', ['pdf'=>$pdf]);
+	// wp_mail($email, $subject, $mail_html, '', ['pdf'=>$pdf]);
+	// wp_mail($admin_email, $subject, $mail_html, '', ['pdf'=>$pdf]);
 
 
 	// Output the generated PDF to Browser

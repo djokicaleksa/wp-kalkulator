@@ -19,9 +19,9 @@ $kf(document).ready(function(){
 				$kf('#restrictions ul').append('<li>'+ogranicenja+'</li>');	
 
 				$kf(this).parent().parent().after('<tr data-id="'+id+'" class="ogr"><td colspan=4>'+ogranicenja+'</td></tr>');
-				var rest_row = $kf('tr[data-id="'+id+'"]');
+				// var rest_row = $kf('tr[data-id="'+id+'"]');
 			
-				rest_row.fadeOut(4000, function(){ $kf(this).remove();});
+				// rest_row.fadeOut(4000, function(){ $kf(this).remove();});
 		
 			}
 
@@ -39,6 +39,9 @@ $kf(document).ready(function(){
 			$kf('input[data-id="'+id+'"]').remove();
 			$kf('#restrictions ul li:contains("'+ogranicenja+'")').remove();
 			tableRow.remove();
+
+			var rest_row = $kf('tr[data-id="'+id+'"]');
+			rest_row.remove();
 		}
 		var total = 0;
 		$kf('#total').empty();

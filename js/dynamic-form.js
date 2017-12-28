@@ -65,7 +65,7 @@ $jq(document).ready(function(){
                 '                                   </h3>'+ 
                 '                             </div> '+
                 '                              <div class="cat_edit_form inline" style="display:none">'+
-                '                               <input class="old_cat_name" type="hidden" value="'+unicodeReplace(kategorija)+'" class="form-control"> '+
+                '                               <input class="old_cat_name" type="hidden" value="'+kategorija+'" class="form-control"> '+
                 '                               <input class="cat_name" type="text" value="'+unicodeReplace(kategorija)+'" class="form-control"><a class="save_cat_change"><span class="dashicons dashicons-yes"></span></a>'+
                 '                             </div>'+
                 '                        </div>' +
@@ -132,6 +132,9 @@ $jq(document).ready(function(){
         // var parent = $jq(this);
         var old_cat_name = $jq(this).parent().find('.old_cat_name').val();
         var new_cat_name = $jq(this).parent().find('.cat_name').val();
+
+        console.log(old_cat_name);
+        console.log(new_cat_name);
         // $jq(this).hide();
         // $jq(this).parent().parent().find('cat_name').html(new_cat_name);
 
@@ -351,7 +354,7 @@ function populateMenuModal(json){
                 '                             </div> '+
 
                 '                              <div class="cat_edit_form inline" style="display:none">'+
-                '                               <input class="old_cat_name" type="hidden" value="'+unicodeReplace(kategorija)+'" class="form-control"> '+
+                '                               <input class="old_cat_name" type="hidden" value="'+kategorija+'" class="form-control"> '+
                 '                               <input class="cat_name" type="text" value="'+unicodeReplace(kategorija)+'" class="form-control"><a class="save_cat_change"><span class="dashicons dashicons-yes"></span></a>'+
                 '                             </div>'+
                 '                        </div>' +
@@ -368,7 +371,7 @@ function populateMenuModal(json){
             '                                        </tr>' +
             '                                    </thead>' +
             '                                    <tbody class="tbody">' +
-            '                                       <input type="hidden" class="kategorija" value="'+unicodeReplace(kategorija)+'">'+
+            '                                       <input type="hidden" class="kategorija" value="'+kategorija+'">'+
             '                                    </tbody>'+
             '                                </table>' +
             '                                <div class="container-fluid item_input_fields">' +

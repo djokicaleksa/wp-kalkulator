@@ -66,7 +66,18 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 											<td style="display: none;" id="seachable_by"><?php echo parse_unicode($item3['searchable_by']); ?></td>
 											<td style="display: none;" id="ogranicenja"><?php echo parse_unicode($item3['ogranicenja']); ?></td>
 											<td style="display: none;" id="id"><?php echo $item3['id']; ?></td>
-										</tr>	
+										</tr style="display: none;" >
+
+		<!-- 								<tr id="<?php echo $item3['id'] ?>">
+											<td style="display: none;" ></td>
+											<td style="display: none;" ></td>
+											<td style="display: none;"><td>
+											<td style="display: none;" ></td>
+											<td style="display: none;"></td>
+											<td><?php echo parse_unicode($item3['ogranicenja']); ?></td>
+											<td style="display: none;"></td>
+
+										</tr> -->	
 								<?php
 									}
 
@@ -122,10 +133,10 @@ function dj_kalkulator_shortcode($atts, $content = null){
 			    	</div>
 			    	
 		<form method="POST" id="mini_calculator" action="<?php echo admin_url( 'admin.php' ); ?>">
-			<label for="email">Vaša e-mail adresa</label>
-			<input type="email" name="email" placehodler="Vasa e-mail adresa">
+<!-- 			<label for="email">Vaša e-mail adresa</label>
+			<input type="email" name="email" placehodler="Vasa e-mail adresa"> -->
 			<input type="hidden" name="action" value="dj_submit_form" />
-			<button type="submit" id="send" class="btn btn-lg btn-primary btn-block">Posalji</button>
+			<button type="submit" id="send" class="btn btn-lg btn-primary btn-block">SNIMITE PDF</button>
 		</form>
 	<?php
 }
