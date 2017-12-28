@@ -16,7 +16,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		$items = json_decode($items, true);
 
 	?>
-	
+				
 				<table id="example" class="display" width="100%" cellspacing="0">
 		        <thead>
 		            <tr>
@@ -41,6 +41,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		            </tr>
 		        </tfoot>
 		        <tbody>
+		        	<input type="text" style="display: none;" name="kalkulator_id" id="kalkulator_id" value="<?php echo $content; ?>">
 			            <?php 
 			            	foreach($items as $item1_key => $item1_value){
 						?>
@@ -66,6 +67,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 											<td style="display: none;" id="seachable_by"><?php echo parse_unicode($item3['searchable_by']); ?></td>
 											<td style="display: none;" id="ogranicenja"><?php echo parse_unicode($item3['ogranicenja']); ?></td>
 											<td style="display: none;" id="id"><?php echo $item3['id']; ?></td>
+											<td style="display: none;"><input type="hidden" class="rank" value="<?php echo $item3['rang']; ?>"> </td>
 										</tr style="display: none;" >
 
 		<!-- 								<tr id="<?php echo $item3['id'] ?>">

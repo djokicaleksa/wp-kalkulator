@@ -78,7 +78,7 @@ $jq(document).ready(function(){
                 '                                            <th>Opis</th>' +
                 '                                            <th>Cena</th>' +
                 '                                            <th>Pretraživo po</th>' +
-                '                                            <th>Ograničenja</th>' +
+                '                                            <th>Ograničenja | Rang</th>' +
                 '                                        </tr>' +
                 '                                    </thead>' +
                 '                                    <tbody class="tbody">' +
@@ -103,6 +103,16 @@ $jq(document).ready(function(){
                 '                                        </div>' +
                 '                                        <div class="form-group">'+
                 '                                             <input type="text" placeholder="Ograničenja" id="ogranicenja_stavke" class="form-control ogranicenja_stavke">'+
+                '                                       </div>'+
+                '                                        <div class="form-group">'+
+                '                                             <select class="rang_ogranicenja form-control">'+
+                '                                                   <option selected disabled>Izaberite rang ogranicenja</option>'+
+                '                                                   <option value="1">1</option>'+
+                '                                                   <option value="2">2</option>'+
+                '                                                   <option value="3">3</option>'+
+                '                                                   <option value="4">4</option>'+
+                '                                                   <option value="5">5</option>'+
+                '                                             </select>'+
                 '                                       </div>'+
                 '                                        <button class="btn btn-add add_item" id="add_item" type="button">Dodaj stavku</button>' +
                 '                                    </form>' +
@@ -154,7 +164,7 @@ $jq(document).ready(function(){
 
     //Dodavanje stavke
     $jq('#menu').on('click', 'button.add_item', function(){
-        var naziv, opis, cena, searchable_by, kategorija, ogranicenja, id;
+        var naziv, opis, cena, searchable_by, kategorija, ogranicenja, id, rang;
         naziv = $jq(this).parent().find('.naziv_stavke').val();
         opis = $jq(this).parent().find('.opis_stavke').val();
         cena = $jq(this).parent().find('.cena_stavke').val();
@@ -162,6 +172,7 @@ $jq(document).ready(function(){
         kategorija = $jq(this).parent().find('.kategorija').val();
         ogranicenja = $jq(this).parent().find('.ogranicenja_stavke').val();
         id = makeid();
+        rang = $jq(this).parent().find('.rang_ogranicenja').val();
 
         $jq(this).parent().parent().parent().find('.tbody').append(
                 '<tr>'+
@@ -199,7 +210,8 @@ $jq(document).ready(function(){
             Opis: opis,
             Cena: cena,
             searchable_by: searchable_by,
-            ogranicenja: ogranicenja
+            ogranicenja: ogranicenja,
+            rang:rang,
         });
     });
 
@@ -254,6 +266,8 @@ $jq(document).on('click', '.save_item_change', function(){
     var price = $jq(this).parent().parent().find('.item_price').val();
     var searchable_by = $jq(this).parent().parent().find('.item_searchable').val();
     var ogranicenja = $jq(this).parent().parent().find('.item_ogranicenja').val();
+    var rang = $jq(this).parent().parent().find('.rang_ogranicenja').val();
+    console.log(rang);
 
     menu[cat].Stavke
 
@@ -266,6 +280,7 @@ $jq(document).on('click', '.save_item_change', function(){
          menu[cat].Stavke[i].Cena = price;
          menu[cat].Stavke[i].searchable_by = searchable_by;
          menu[cat].Stavke[i].ogranicenja = ogranicenja;
+         menu[cat].Stavke[i].rang = rang;
 
          break;
       }
@@ -367,7 +382,7 @@ function populateMenuModal(json){
             '                                            <th>Opis</th>' +
             '                                            <th>Cena</th>' +
             '                                            <th>Pretraživo po</th>' +
-            '                                            <th>Ograničenja</th>' +
+            '                                            <th>Ograničenja | Rang</th>' +
             '                                        </tr>' +
             '                                    </thead>' +
             '                                    <tbody class="tbody">' +
@@ -392,6 +407,16 @@ function populateMenuModal(json){
             '                                        <div class="form-group">'+
             '                                             <input type="text" placeholder="Ograničenja" id="ogranicenja_stavke" class="ogranicenja_stavke orm-control">'+
             '                                       </div>'+
+            '                                        <div class="form-group">'+
+            '                                             <select class="rang_ogranicenja form-control">'+
+            '                                                   <option selected disabled>Izaberite rang ogranicenja</option>'+
+            '                                                   <option value="1">1</option>'+
+            '                                                   <option value="2">2</option>'+
+            '                                                   <option value="3">3</option>'+
+            '                                                   <option value="4">4</option>'+
+            '                                                   <option value="5">5</option>'+
+            '                                             </select>'+
+            '                                       </div>'+
             '                                        <button class="btn btn-add add_item" id="add_item" type="button">Dodaj stavku</button>' +
             '                                    </form>' +
             '                                </div>' +
@@ -412,7 +437,7 @@ function populateMenuModal(json){
                                 '<td>'+unicodeReplace(json[kategorija][stavke][i].Opis)+'</td>'+
                                 '<td>'+unicodeReplace(json[kategorija][stavke][i].Cena)+'</td>'+
                                 '<td>'+unicodeReplace(json[kategorija][stavke][i].searchable_by)+'</td>'+
-                                '<td>'+unicodeReplace(json[kategorija][stavke][i].ogranicenja)+'</td>'+
+                                '<td>'+unicodeReplace(json[kategorija][stavke][i].ogranicenja)+' | '+json[kategorija][stavke][i].rang+'</td>'+
                                 '<td style="display:none;"><input class="item_id" type="hidden" value="'+json[kategorija][stavke][i].id+'"></td>'+                                
                                 '<td>'+
                                     '<button class="pull-right item_remove btn btn-sm btn-rounded">X</button>'+
@@ -426,7 +451,15 @@ function populateMenuModal(json){
                                 '<td><input class="item_desc" type="text" value="'+unicodeReplace(json[kategorija][stavke][i].Opis)+'"></td>'+
                                 '<td><input class="item_price" type="text" value="'+unicodeReplace(json[kategorija][stavke][i].Cena)+'"></td>'+
                                 '<td><input class="item_searchable" type="text" value="'+unicodeReplace(json[kategorija][stavke][i].searchable_by)+'"></td>'+
-                                '<td><input class="item_ogranicenja" type="text" value="'+unicodeReplace(json[kategorija][stavke][i].ogranicenja)+'"></td>'+
+                                '<td><input class="item_ogranicenja" type="text" value="'+unicodeReplace(json[kategorija][stavke][i].ogranicenja)+'">'+
+                                '       <select class="rang_ogranicenja">'+
+                                '           <option value="1" '+isSelecetedRestriction(1, json[kategorija][stavke][i].rang)+'>1</option>'+
+                                '           <option value="2" '+isSelecetedRestriction(2, json[kategorija][stavke][i].rang)+'>2</option>'+
+                                '           <option value="3" '+isSelecetedRestriction(3, json[kategorija][stavke][i].rang)+'>3</option>'+
+                                '           <option value="4" '+isSelecetedRestriction(4, json[kategorija][stavke][i].rang)+'>4</option>'+
+                                '           <option value="5" '+isSelecetedRestriction(5, json[kategorija][stavke][i].rang)+'>5</option>'+
+                                '       </select>'+
+                                '</td>'+
                                 '<td style="display:none;"><input class="item_id" type="hidden" value="'+json[kategorija][stavke][i].id+'"></td>'+
                                 '<td style="display:none;"><input class="item_cat" type="hidden" value="'+kategorija+'"></td>'+
                                 '<td><a class="save_item_change"><span class="dashicons dashicons-yes"></span></a></td>'+
@@ -449,6 +482,11 @@ function spojiNazivKategorije(name){
     return full_name;
 }
 
+function isSelecetedRestriction(field_rank, item_rang){
+    if(field_rank == item_rang){
+        return 'selected';
+    }
+}
 
 function makeid() {
   var text = "";

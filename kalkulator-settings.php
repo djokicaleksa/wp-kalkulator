@@ -85,6 +85,26 @@ function dj_get_kalkulator_meta(){
 
 add_action('wp_ajax_get_kalulator_meta', 'dj_get_kalkulator_meta');
 
+function dj_get_restrictions_order(){
+	$kalkulator_id = (int) $_GET['kalkulator_id'];
+
+	$post_meta_items = get_post_meta($kalkulator_id, 'items');
+	$response = [];
+	$i = 0;
+	return wp_send_json(json_decode($post_meta_items[0], true));
+	foreach ($post_meta_items[0] as $kategorije) {
+		
+		foreach ($kategorije as $kategorija) {
+			
+			// $response[$i]['item_id'] = $stavka['id'];
+			// $response[$i]['rang'] = $stavka['rang'];
+		}
+	}
+
+	return wp_send_json(json_decode($response, true));
+}
+
+add_action('wp_ajax_get_restrictions_order', 'dj_get_restrictions_order');
 
 function dj_edit_category_calculator(){
 	$old_name = $_POST['old_name'];
@@ -115,7 +135,6 @@ function dj_submit_form(){
 	$dompdf = new Dompdf();
 	$i = $_POST['i'];
 	$items = [];
-	$email = $_POST['email'];
 	$admin_email = get_bloginfo("admin_email");
 
 	$restrictions = [];
@@ -277,7 +296,8 @@ table th {
 	</html>';
 
 	// var_dump($pdf_html);
-
+var_dump($pdf_html);
+die();
 	$dompdf->loadHtml($pdf_html);
 
 	// (Optional) Setup the paper size and orientation
