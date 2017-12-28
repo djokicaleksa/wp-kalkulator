@@ -147,13 +147,14 @@ $jq(document).ready(function(){
 
     //Dodavanje stavke
     $jq('#menu').on('click', 'button.add_item', function(){
-        var naziv, opis, cena;
+        var naziv, opis, cena, searchable_by, kategorija, ogranicenja, id;
         naziv = $jq(this).parent().find('.naziv_stavke').val();
         opis = $jq(this).parent().find('.opis_stavke').val();
         cena = $jq(this).parent().find('.cena_stavke').val();
         searchable_by = $jq(this).parent().find('.searchable_by').val();
         kategorija = $jq(this).parent().find('.kategorija').val();
         ogranicenja = $jq(this).parent().find('.ogranicenja_stavke').val();
+        id = makeid();
 
         $jq(this).parent().parent().parent().find('.tbody').append(
                 '<tr>'+
@@ -164,9 +165,19 @@ $jq(document).ready(function(){
                     '<td>'+ogranicenja+'</td>'+                                  
                     '<td>'+
                         '<button class="pull-right item_remove btn btn-sm btn-rounded">X</button>'+
-                        '<a class="edit_cat" type="button"><span class="dashicons dashicons-edit"></span></a>'+
+                        '<a class="edit_item" type="button"><span class="dashicons dashicons-edit"></span></a>'+
                     '<td>'+
-                '</tr>'
+                '</tr>'+
+                '<tr class="item_input" style="display:none;">'+
+                                '<td><input class="item_name" type="text" value="'+naziv+'"></td>'+
+                                '<td><input class="item_desc" type="text" value="'+opis+'"></td>'+
+                                '<td><input class="item_price" type="text" value="'+cena+'"></td>'+
+                                '<td><input class="item_searchable" type="text" value="'+searchable_by+'"></td>'+
+                                '<td><input class="item_ogranicenja" type="text" value="'+ogranicenja+'"></td>'+
+                                '<td style="display:none;"><input class="item_id" type="hidden" value="'+id+'"></td>'+
+                                '<td style="display:none;"><input class="item_cat" type="hidden" value="'+kategorija+'"></td>'+
+                                '<td><a class="save_item_change"><span class="dashicons dashicons-yes"></span></a></td>'+
+                            '</tr>'
             );
 
         $jq(this).parent().find('.cena_stavke').val("");
@@ -176,7 +187,7 @@ $jq(document).ready(function(){
         $jq(this).parent().find('.ogranicenja_stavke').val("");
 
         menu[kategorija].Stavke.push({
-            id: makeid(),
+            id: id,
             Naziv: naziv,
             Opis: opis,
             Cena: cena,
@@ -217,6 +228,8 @@ $jq(document).ready(function(){
     $jq(document).on('click', '.edit_item', function(){
     var row = $jq(this).parent().parent();
     var input_row = row.closest('tr').next('tr');
+    console.log(row);
+    console.log(input_row);
     row.hide();
     input_row.show();
 
