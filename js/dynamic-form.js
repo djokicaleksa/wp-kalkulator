@@ -180,7 +180,7 @@ $jq(document).ready(function(){
                     '<td>'+opis+'</td>'+
                     '<td>'+cena+'</td>'+
                     '<td>'+searchable_by+'</td>'+
-                    '<td>'+ogranicenja+'</td>'+                                  
+                    '<td>'+ogranicenja+' | '+rang+'</td>'+                                  
                     '<td>'+
                         '<button class="pull-right item_remove btn btn-sm btn-rounded">X</button>'+
                         '<a class="edit_item" type="button"><span class="dashicons dashicons-edit"></span></a>'+

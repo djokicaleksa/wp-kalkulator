@@ -73,18 +73,18 @@ $kf(document).ready(function(){
 						$kf('#restrictions ul').append('<li>'+stavka.restriction+'</li>');
 					}
 				});			
-
+				console.log(items_checked);
 			}
 		}else{
-			console.log($kf.grep(items, function(e){ return e.id == id;})[0]);
-			remove(items_checked, $kf.grep(items, function(e){ return e.id == id;}));
+
+			items_checked = remove(items_checked, $kf.grep(items, function(e){ return e.id == id;}));
 			$kf('#restrictions ul').empty();
 			items_checked.forEach(function(stavka, index){
 				if(stavka.rank >= getMaxRank(items_checked)){
 					$kf('#restrictions ul').append('<li>'+stavka.restriction+'</li>');
 				}
 			});		
-
+			console.log(items_checked);
 			var mini_table_row = $kf('#'+item[0].id);
 			mini_table_row.remove();
 			clicked_row.next('tr').remove();
@@ -122,8 +122,11 @@ $kf(document).ready(function(){
 });
 
 function remove(array, element) {
-    const index = array.indexOf(element);
-    array.splice(index, 1);
+    var filtered;
+    filtered = array.filter(function(el){;
+    	return el.id !== element[0].id;
+    });
+    return filtered;
 }
 
 function getMaxRank(items_checked){
