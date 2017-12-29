@@ -143,10 +143,11 @@ function dj_front_enqueruer_scripts(){
 	wp_enqueue_script('form-calculator', plugins_url( 'js/form-calculator.js', __FILE__ ), array( 'jquery'), '20171224', true );
 
 	
-		wp_enqueue_script( 'ajax-script', get_template_directory_uri() . '/js/my-ajax-script.js', array('jquery') );
+		wp_enqueue_script( 'ajax-script', plugin_dir_path('/js/kalkulator-front.js', __FILE__), array('jquery') );
+    	wp_localize_script( 'ajax-script', 'my_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 
-    	wp_localize_script( 'ajax-script', 'my_ajax_object',
-            array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+  //   	wp_enqueue_script( 'custom-ajax-request', '/path/to/settings.js', array( 'jquery' ) );
+		// wp_localize_script( 'custom-ajax-request', 'MyAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) )
 
 }
 

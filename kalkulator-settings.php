@@ -296,8 +296,7 @@ table th {
 	</html>';
 
 	// var_dump($pdf_html);
-var_dump($pdf_html);
-die();
+
 	$dompdf->loadHtml($pdf_html);
 
 	// (Optional) Setup the paper size and orientation

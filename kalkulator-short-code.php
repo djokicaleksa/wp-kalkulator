@@ -60,7 +60,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 									foreach ($item2 as $item3) {
 										?>
 										<tr>
-											<td><input type="checkbox" class="terapija" name="terapija[]"></td>
+											<td><input type="checkbox" value="<?php echo $item3['id']; ?>" class="terapija" name="terapija[]"></td>
 											<td id="name"><?php echo parse_unicode($item3['Naziv']); ?></td>
 											<td style="display: none;" id="desc"><?php echo parse_unicode($item3['Opis']); ?></td>
 											<td id="price"><?php echo $item3['Cena']; ?></td>

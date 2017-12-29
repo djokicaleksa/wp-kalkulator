@@ -2,9 +2,9 @@ $kf = jQuery.noConflict();
 
 $kf(document).ready(function(){
 	var i = 0;
-	var topRank = 0;
 	kalkulator_id = $kf('#kalkulator_id').val();
-	ranks = [];
+	var items = [];
+	var items_checked = [];
 	
 	$kf.ajax({
 		type: "GET",
@@ -12,7 +12,6 @@ $kf(document).ready(function(){
         dataType: "json",
         data: {
         	action:'get_restrictions_order',
-            
             kalkulator_id:kalkulator_id
             },
             success: function (data) {
@@ -20,8 +19,11 @@ $kf(document).ready(function(){
                 for(kategorija in json){
                 	for(var stavke in json[kategorija]){
                 		for(var i = 0; i < json[kategorija][stavke].length; i++){
-                			ranks.push({
+                			items.push({
                 				id:json[kategorija][stavke][i].id,
+                				name:json[kategorija][stavke][i].Naziv,
+                				desc:json[kategorija][stavke][i].Opis,
+                				price:json[kategorija][stavke][i].Cena,
                 				restriction:json[kategorija][stavke][i].ogranicenja,
                 				rank:json[kategorija][stavke][i].rang
                 			});
@@ -34,88 +36,65 @@ $kf(document).ready(function(){
 
             }
 	});
-	//  console.log(ranks);
 
 	$kf('.terapija').change(function(){
 
-		var name = $kf(this).parent().parent().find('#name').text();
-		var desc = $kf(this).parent().parent().find('#desc').text();
-		var price = $kf(this).parent().parent().find('#price').text();
-		var ogranicenja = $kf(this).parent().parent().find('#ogranicenja').text();
-		var id = $kf(this).parent().parent().find('#id').text();
-		var rank = parseInt($kf(this).parent().parent().find('.rank').val());
-		// console.log(rank);
+		var id = $kf(this).val();
+		var item = $kf.grep(items, function(e){ return e.id == id;});
+		var clicked_row = $kf(this).parent().parent();
+
 		if($kf(this).is(':checked')){
-			$kf("#table-body").append('<tr><td>'+name+'</td><td class="price">'+price+'</td></tr>');
-			$kf('#description_field p').html(desc);
 
-			//dodaje za pdf
-			$kf('#mini_calculator').append('<input type="hidden" data-rank="'+rank+'" data-id="'+id+'" class="input_name" name="item_'+i+'_name" value="'+name+'">');
-			$kf('#mini_calculator').append('<input type="hidden" data-id="'+id+'" id="desc" name="item_'+i+'_desc" value="'+desc+'">');
-			$kf('#mini_calculator').append('<input type="hidden" data-id="'+id+'" id="price" name="item_'+i+'_price" value="'+price+'">');
+			//dodaje u items_checked
+			items_checked.push({
+					id:item[0].id,
+                	name:item[0].name,
+                	desc:item[0].desc,
+                	price:item[0].price,
+                	restriction:item[0].restriction,
+                	rank:item[0].rank
+                });
 
-			
-			if(ogranicenja !== '' && ogranicenja !== null ){
-				$kf(this).parent().parent().after('<tr data-id="'+id+'" class="ogr"><td colspan=4>'+ogranicenja+'</td></tr>');//dodaje u galvnu tabelu
+			//dodaje u malu tabelu
+			$kf("#table-body").append('<tr id="'+item[0].id+'"><td>'+item[0].name+'</td><td class="price">'+item[0].price+'</td></tr>');
+			//dodaje opis u div
+			$kf('#description_field p').html(item[0].desc);
 
-				$kf('#restrictions ul').empty();	
+			//ako ogranicenje nije prazno
+			if(item[0].restriction !== '' && item[0].restriction !== null && typeof item[0].restriction !== "undefined"){
+				//posle kliknutog reda dodati ogranicenje
+				clicked_row.after('<tr><td colspan=4>'+item[0].restriction+'</td></tr>');//dodaje u galvnu tabelu
+				// $kf('#restrictions ul').empty();	
 				
-				$kf('.input_name').each(function(index){
-					var id = $kf(this).attr('data-id');
-					var input_rank = $kf(this).attr('data-rank');
-
-					var item = $kf.grep(ranks, function(e){ return e.id == id; });
-					// console.log('iteracija: ' + index);
-					// console.log(id);
-					// console.log('rank ' + rank);
-					console.log('top rank '  + topRank);
-					if(input_rank >= topRank){
-						$kf('#restrictions ul').append('<li>'+item[0].restriction+'</li>');	
-						console.log('prosao ' + input_rank);
-						topRank = input_rank;
-						// console.log('topRank ' + topRank);
-						$kf('#mini_calculator').append('<input type="hidden" class="rest" name="item_'+index+'_restriction" value="'+item[0].restriction+'">');//dodaje ogranicenje za pdf
-					}else{
-						console.log('Nemeze');
+				//prolazi kroz svaki dodati input
+				$kf('#restrictions ul').empty()
+				items_checked.forEach(function(stavka, index){
+					if(stavka.rank >= getMaxRank(items_checked)){
+						$kf('#restrictions ul').append('<li>'+stavka.restriction+'</li>');
 					}
+				});			
 
-
-					
-				});
 			}
 		}else{
-			var tableRow = $kf('#kalkulator_sc td').filter(function(){
-				return $kf(this).text() == name;
-			}).closest('tr');
-			$kf('input[data-id="'+id+'"]').remove();
-			$kf('#restrictions ul li:contains("'+ogranicenja+'")').remove();
-			tableRow.remove();
+			console.log($kf.grep(items, function(e){ return e.id == id;})[0]);
+			remove(items_checked, $kf.grep(items, function(e){ return e.id == id;}));
+			$kf('#restrictions ul').empty();
+			items_checked.forEach(function(stavka, index){
+				if(stavka.rank >= getMaxRank(items_checked)){
+					$kf('#restrictions ul').append('<li>'+stavka.restriction+'</li>');
+				}
+			});		
 
-			var rest_row = $kf('tr[data-id="'+id+'"]');
-			rest_row.remove();
+			var mini_table_row = $kf('#'+item[0].id);
+			mini_table_row.remove();
+			clicked_row.next('tr').remove();
 
-			$kf('.input_name').each(function(index){
-				var id = $kf(this).attr('data-id');
-				var input_rank = $kf(this).attr('data-rank');
-				var item = $kf.grep(ranks, function(e){ return e.id == id; });
-					// console.log('iteracija: ' + index);
-					// console.log(id);
-					// console.log('rank ' + rank);
-				console.log('top rank '  + topRank);
-				if(input_rank >= topRank){
-					$kf('#restrictions ul').append('<li>'+item[0].restriction+'</li>');	
-					console.log('prosao ' + input_rank);
-					topRank = input_rank;
-					// console.log('topRank ' + topRank);
-					$kf('#mini_calculator').append('<input type="hidden" class="rest" name="item_'+index+'_restriction" value="'+item[0].restriction+'">');//dodaje ogranicenje za pdf
-				}else{
-					console.log('Nemeze');
-				}});
 		}
+
+
+		//racuna total
 		var total = 0;
 		$kf('#total').empty();
-
-		
 
 		$kf('#kalkulator_sc  td.price').each(function(index){
 			total += parseInt($kf(this).text()); 
@@ -127,7 +106,32 @@ $kf(document).ready(function(){
 	$kf('#send').click(function(e){
 		e.preventDefault();
 
+		items_checked.forEach(function(stavka, index){
+			$kf('#mini_calculator').append('<input type="hidden" class="input_name" name="item_'+index+'_name" value="'+stavka.name+'">');
+			$kf('#mini_calculator').append('<input type="hidden" id="desc" name="item_'+index+'_desc" value="'+stavka.desc+'">');
+			$kf('#mini_calculator').append('<input type="hidden" id="price" name="item_'+index+'_price" value="'+stavka.price+'">');
+			
+			if(stavka.rank >= getMaxRank(items_checked)){
+				$kf('#mini_calculator').append('<input type="hidden" class="rest" name="item_'+index+'_restriction" value="'+stavka.restriction+'">');
+			}
+		});
+
 		$kf('#mini_calculator').append('<input type="hidden" name="i" value="'+i+'">');
 		$kf('#mini_calculator').submit();
 	});
 });
+
+function remove(array, element) {
+    const index = array.indexOf(element);
+    array.splice(index, 1);
+}
+
+function getMaxRank(items_checked){
+	var max = 0;
+	items_checked.forEach(function(item){
+		if(item.rank > max){
+			max = item.rank;
+		}
+	});
+	return max;
+}
