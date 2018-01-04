@@ -110,15 +110,17 @@ function dj_kalkulator_shortcode($atts, $content = null){
 		<table id="kalkulator_sc" class="display" width="100%" cellspacing="0">
 		    <thead>
 		        <tr>
+		        	<th width="10"></th>
 		            <th>Naziv</th>
-		            <th style="display: none;">Opis</th>
+		            <th>Opis</th>
 		            <th>Cena</th>
 		         </tr>
 		    </thead>
 		    <tfoot>
 		        <tr>
-		            <th style="display: none;"></th>
+		        	<th></th>
 		            <th>Ukupno</th>
+		            <th></th>
 		            <th id="total"></th>
 		        </tr>
 		    </tfoot>

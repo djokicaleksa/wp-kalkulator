@@ -1,6 +1,7 @@
 $kf = jQuery.noConflict();
 
 $kf(document).ready(function(){
+	var no = 0;
 	var i = 0;
 	kalkulator_id = $kf('#kalkulator_id').val();
 	var items = [];
@@ -38,12 +39,13 @@ $kf(document).ready(function(){
 	});
 
 	$kf('.terapija').change(function(){
-
+		var restrictions = [];
 		var id = $kf(this).val();
 		var item = $kf.grep(items, function(e){ return e.id == id;});
 		var clicked_row = $kf(this).parent().parent();
 
 		if($kf(this).is(':checked')){
+			no++;
 
 			//dodaje u items_checked
 			items_checked.push({
@@ -56,7 +58,7 @@ $kf(document).ready(function(){
                 });
 
 			//dodaje u malu tabelu
-			$kf("#table-body").append('<tr id="'+item[0].id+'"><td>'+item[0].name+'</td><td class="price">'+item[0].price+'</td></tr>');
+			$kf("#table-body").append('<tr id="'+item[0].id+'"><td width="10">'+no+'</td><td>'+item[0].name+'</td><td>'+item[0].desc+'</td><td class="price">'+item[0].price+'</td></tr>');
 			//dodaje opis u div
 			$kf('#description_field p').html(item[0].desc);
 
@@ -70,21 +72,23 @@ $kf(document).ready(function(){
 				$kf('#restrictions ul').empty()
 				items_checked.forEach(function(stavka, index){
 					if(stavka.rank >= getMaxRank(items_checked)){
-						$kf('#restrictions ul').append('<li>'+stavka.restriction+'</li>');
+						restrictions.push(stavka.restriction);
+						// $kf('#restrictions ul').append('<li>'+stavka.restriction+'</li>');
 					}
 				});			
-				console.log(items_checked);
 			}
 		}else{
-
+			no--;
+			$kf('#description_field p').empty();
 			items_checked = remove(items_checked, $kf.grep(items, function(e){ return e.id == id;}));
 			$kf('#restrictions ul').empty();
 			items_checked.forEach(function(stavka, index){
 				if(stavka.rank >= getMaxRank(items_checked)){
-					$kf('#restrictions ul').append('<li>'+stavka.restriction+'</li>');
+					restrictions.push(stavka.restriction);
+					// $kf('#restrictions ul').append('<li>'+stavka.restriction+'</li>');
 				}
 			});		
-			console.log(items_checked);
+
 			var mini_table_row = $kf('#'+item[0].id);
 			mini_table_row.remove();
 			clicked_row.next('tr').remove();
@@ -101,6 +105,14 @@ $kf(document).ready(function(){
 		});
 		$kf('#total').append(total + ' RSD');
 		i++;
+
+		
+		restrictions = $kf.unique(restrictions);
+
+		restrictions.forEach(function(item){
+			$kf('#restrictions ul').append('<li>'+item+'</li>');
+		});
+
 	});
 
 	$kf('#send').click(function(e){
@@ -137,4 +149,17 @@ function getMaxRank(items_checked){
 		}
 	});
 	return max;
+}
+
+function isUniqueRestriction(items_checked, stavka){
+	var bool = true;
+	items_checked.forEach(function(item){
+		if(item.restriction == stavka.restriction){
+			console.log('item ' + item.restriction);
+			console.log('stavka ' + stavka.restriction);
+			bool = false;
+		}
+
+	});
+	console.log(bool);
 }
