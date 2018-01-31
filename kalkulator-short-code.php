@@ -43,14 +43,14 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		            </tr>
 		        </tfoot>
 		        <tbody>
-		        	<input type="text" style="display: none;" name="kalkulator_id" id="kalkulator_id" value="<?php echo $content; ?>">
-			            <?php 
+		        	<input type="text" style="display: none;" name="kalkulator_id" id="kalkulator_id" value="'.$content.'">;'
+			            
 			            	foreach($items as $item1_key => $item1_value){
-						?>
-								<tr>
+								$html .=
+								'<tr>
 									<td></td>
 									<td  style="display: none;"></td>
-									<td><?php echo  parse_unicode($item1_key);?></td>
+									<td>' . parse_unicode($item1_key) . '</td>
 									<td></td>
 									<td style="display: none;" ></td>
 									<td style="display: none;" ></td>
