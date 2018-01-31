@@ -62,23 +62,23 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 									foreach ($item2 as $item3) {
 
 									$html .= '<tr>
-											<td><input type="checkbox" value="<?php echo $item3['id']; ?>" class="terapija" name="terapija[]"></td>
-											<td id="name"><?php echo parse_unicode($item3['Naziv']); ?></td>
-											<td style="display: none;" id="desc"><?php echo parse_unicode($item3['Opis']); ?></td>
-											<td id="price"><?php echo $item3['Cena']; ?></td>
-											<td style="display: none;" id="seachable_by"><?php echo parse_unicode($item3['searchable_by']); ?></td>
-											<td style="display: none;" id="ogranicenja"><?php echo parse_unicode($item3['ogranicenja']); ?></td>
-											<td style="display: none;" id="id"><?php echo $item3['id']; ?></td>
-											<td style="display: none;"><input type="hidden" class="rank" value="<?php echo $item3['rang']; ?>"> </td>
+											<td><input type="checkbox" value="'.$item3['id'].'" class="terapija" name="terapija[]"></td>
+											<td id="name">'.parse_unicode($item3['Naziv']).'</td>
+											<td style="display: none;" id="desc">'.parse_unicode($item3['Opis']).'</td>
+											<td id="price">'.$item3['Cena'].'</td>
+											<td style="display: none;" id="seachable_by">'.parse_unicode($item3['searchable_by']).'</td>
+											<td style="display: none;" id="ogranicenja">'.parse_unicode($item3['ogranicenja']).'</td>
+											<td style="display: none;" id="id">'.$item3['id'].'</td>
+											<td style="display: none;"><input type="hidden" class="rank" value="'.$item3['rang'].'"> </td>
 										</tr style="display: none;" >
 
-		<!-- 								<tr id="<?php echo $item3['id'] ?>">
+		<!-- 								<tr id="'.$item3['id'].'">
 											<td style="display: none;" ></td>
 											<td style="display: none;" ></td>
 											<td style="display: none;"><td>
 											<td style="display: none;" ></td>
 											<td style="display: none;"></td>
-											<td><?php echo parse_unicode($item3['ogranicenja']); ?></td>
+											<td>'.parse_unicode($item3['ogranicenja']).'</td>
 											<td style="display: none;"></td>
 
 										</tr> -->';	
