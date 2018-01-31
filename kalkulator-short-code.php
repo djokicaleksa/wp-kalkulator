@@ -15,9 +15,11 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		$items = json_decode($post_meta_items[0]);
 		$items = json_decode($items, true);
 
-	?>
+		$html = '';
+
+	
 				
-				<table id="example" class="display" width="100%" cellspacing="0">
+		$html .= '<table id="example" class="display" cellspacing="0">
 		        <thead>
 		            <tr>
 		            	<th></th>
@@ -53,13 +55,13 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 									<td style="display: none;" ></td>
 									<td style="display: none;" ></td>
 									<td style="display: none;" ></td>
-								</tr>
-						<?php
+								</tr>';
+						
 
 								foreach ($item1_value as $item2) {
 									foreach ($item2 as $item3) {
-										?>
-										<tr>
+
+									$html .= '<tr>
 											<td><input type="checkbox" value="<?php echo $item3['id']; ?>" class="terapija" name="terapija[]"></td>
 											<td id="name"><?php echo parse_unicode($item3['Naziv']); ?></td>
 											<td style="display: none;" id="desc"><?php echo parse_unicode($item3['Opis']); ?></td>
@@ -79,14 +81,14 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 											<td><?php echo parse_unicode($item3['ogranicenja']); ?></td>
 											<td style="display: none;"></td>
 
-										</tr> -->	
-								<?php
+										</tr> -->';	
+								
 									}
 
 								}
 							}
-			            ?>
-			        </tbody>
+			         
+			    $html .= '</tbody>
 					<div id="description_field">
 			    		<p></p>
 			    	</div>
@@ -96,8 +98,10 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 			    			
 			    		</ul>
 			    	</div> -->
-			    </table>
-	<?php
+			    </table>';
+
+			    return $html;
+	
 	}else{
 		echo esc_attr(__("Kalkulator nema podataka."));
 	}
@@ -107,7 +111,7 @@ add_shortcode('kalkulator_table_sc', 'dj_kalkulator_table_shortcode');
 
 function dj_kalkulator_shortcode($atts, $content = null){
 	?>
-		<table id="kalkulator_sc" class="display" width="100%" cellspacing="0">
+		<table id="kalkulator_sc" class="display" cellspacing="0">
 		    <thead>
 		        <tr>
 		        	<th width="10"></th>
