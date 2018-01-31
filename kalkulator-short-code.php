@@ -80,14 +80,10 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 											<td style="display: none;"></td>
 											<td>'.parse_unicode($item3['ogranicenja']).'</td>
 											<td style="display: none;"></td>
-
 										</tr> -->';	
-								
 									}
-
 								}
-							}
-			         
+
 			    $html .= '</tbody>
 					<div id="description_field">
 			    		<p></p>
