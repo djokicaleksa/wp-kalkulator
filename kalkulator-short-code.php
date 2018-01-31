@@ -107,8 +107,8 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 add_shortcode('kalkulator_table_sc', 'dj_kalkulator_table_shortcode');
 
 function dj_kalkulator_shortcode($atts, $content = null){
-	?>
-		<table id="kalkulator_sc" class="display" cellspacing="0">
+	$html = '';
+	$html .= '<table id="kalkulator_sc" class="display" cellspacing="0">
 		    <thead>
 		        <tr>
 		        	<th width="10"></th>
@@ -137,13 +137,15 @@ function dj_kalkulator_shortcode($atts, $content = null){
 			    		</ul>
 			    	</div>
 			    	
-		<form method="POST" id="mini_calculator" action="<?php echo admin_url( 'admin.php' ); ?>">
+		<form method="POST" id="mini_calculator" action="' . admin_url( 'admin.php' ) . '">
 <!-- 			<label for="email">Vaša e-mail adresa</label>
 			<input type="email" name="email" placehodler="Vasa e-mail adresa"> -->
 			<input type="hidden" name="action" value="dj_submit_form" />
 			<button type="submit" id="send" class="btn btn-lg btn-primary btn-block">SNIMITE PDF</button>
-		</form>
-	<?php
+		</form>';
+
+		return $html;
+	
 }
 
 add_shortcode('kalkulator_sc','dj_kalkulator_shortcode');
