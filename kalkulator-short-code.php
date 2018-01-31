@@ -43,7 +43,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		            </tr>
 		        </tfoot>
 		        <tbody>
-		        	<input type="text" style="display: none;" name="kalkulator_id" id="kalkulator_id" value="'.$content.'">;'
+		        	<input type="text" style="display: none;" name="kalkulator_id" id="kalkulator_id" value="'.$content.'">';
 			            
 			            	foreach($items as $item1_key => $item1_value){
 								$html .=
