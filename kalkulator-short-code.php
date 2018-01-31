@@ -83,6 +83,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 										</tr> -->';	
 									}
 								}
+							}
 
 			    $html .= '</tbody>
 					<div id="description_field">
