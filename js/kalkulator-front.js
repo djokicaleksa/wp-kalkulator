@@ -60,12 +60,12 @@ $kf(document).ready(function(){
 			//dodaje u malu tabelu
 			$kf("#table-body").append('<tr id="'+item[0].id+'"><td width="10">'+no+'</td><td>'+item[0].name+'</td><td>'+item[0].desc+'</td><td class="price">'+item[0].price+'</td></tr>');
 			//dodaje opis u div
-			$kf('#description_field p').html(item[0].desc);
+			// $kf('#description_field p').html(item[0].desc);
 
 			//ako ogranicenje nije prazno
 			if(item[0].restriction !== '' && item[0].restriction !== null && typeof item[0].restriction !== "undefined"){
 				//posle kliknutog reda dodati ogranicenje
-				clicked_row.after('<tr><td colspan=4>'+item[0].restriction+'</td></tr>');//dodaje u galvnu tabelu
+				// clicked_row.after('<tr><td colspan=4>'+item[0].restriction+'</td></tr>');//dodaje u galvnu tabelu
 				// $kf('#restrictions ul').empty();	
 				
 				//prolazi kroz svaki dodati input
@@ -91,7 +91,7 @@ $kf(document).ready(function(){
 
 			var mini_table_row = $kf('#'+item[0].id);
 			mini_table_row.remove();
-			clicked_row.next('tr').remove();
+			//clicked_row.next('tr').remove();
 
 		}
 

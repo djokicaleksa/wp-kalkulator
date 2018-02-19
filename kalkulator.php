@@ -67,7 +67,7 @@ function parse_unicode($string){
 require_once(plugin_dir_path(__FILE__) . 'kalkulator-setup-tables.php');
 
 //init ili register_activation_hook
-add_action( 'init', 'dj_setup_database');
+// add_action( 'init', 'dj_setup_database');
 
 require_once (plugin_dir_path(__FILE__) . 'kalkulator-custom-post-type.php');
 require_once (plugin_dir_path(__FILE__) . 'kalkulator-fields.php');
