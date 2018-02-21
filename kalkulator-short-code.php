@@ -95,6 +95,10 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 add_shortcode('kalkulator_table_sc', 'dj_kalkulator_table_shortcode');
 
 function dj_kalkulator_shortcode($atts, $content = null){
+	$url = admin_url('admin-post.php');
+	if(current_user_can('administrator')){
+		$url = admin_url('admin.php');
+	}
 	$html = '';
 	$html .= '<table id="kalkulator_sc" class="display" cellspacing="0">
 		    <thead>
@@ -125,7 +129,7 @@ function dj_kalkulator_shortcode($atts, $content = null){
 			    		</ul>
 			    	</div>
 			    	
-		<form method="POST" id="mini_calculator" action="' . admin_url( 'admin-post.php' ) . '">
+		<form method="POST" id="mini_calculator" action="' . $url . '">
 <!-- 			<label for="email">Vaša e-mail adresa</label>
 			<input type="email" name="email" placehodler="Vasa e-mail adresa"> -->
 			<input type="hidden" name="action" value="dj_submit_form" />
