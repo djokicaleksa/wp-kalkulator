@@ -329,5 +329,5 @@ table th {
 	return $dompdf->stream();
 }
 
-
+add_action('admin_post_nopriv_dj_submit_form', 'dj_submit_form');
 add_action('admin_action_dj_submit_form', 'dj_submit_form');

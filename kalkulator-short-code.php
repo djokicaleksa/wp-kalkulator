@@ -125,7 +125,7 @@ function dj_kalkulator_shortcode($atts, $content = null){
 			    		</ul>
 			    	</div>
 			    	
-		<form method="POST" id="mini_calculator" action="' . admin_url( 'admin.php' ) . '">
+		<form method="POST" id="mini_calculator" action="' . admin_url( 'admin-post.php' ) . '">
 <!-- 			<label for="email">Vaša e-mail adresa</label>
 			<input type="email" name="email" placehodler="Vasa e-mail adresa"> -->
 			<input type="hidden" name="action" value="dj_submit_form" />
