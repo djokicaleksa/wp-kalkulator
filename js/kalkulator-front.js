@@ -131,6 +131,14 @@ $kf(document).ready(function(){
 		$kf('#mini_calculator').append('<input type="hidden" name="i" value="'+i+'">');
 		$kf('#mini_calculator').submit();
 	});
+
+
+//toggle red u tabeli na klik kategorije
+	$kf('.link').click(function(){
+		var id = $kf(this).attr('data-id');
+		// $kf('#'+ id).toggleClass('hide');
+		$kf('#'+ id).toggle();
+	});
 });
 
 function remove(array, element) {

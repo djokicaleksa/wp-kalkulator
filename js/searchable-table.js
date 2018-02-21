@@ -1,13 +1,59 @@
 var $j = jQuery.noConflict();
 $j(document).ready(function() {
 	
-    $j('#example').DataTable({
-    	"bSort": false,
-    	"paging": false,
-    	"bInfo" : false,
-    	language: {
-        	search: "Pretraži:",
-    	}
+    var items = [];
+	var kal_id = $kf('#kalkulator_id').val();
+
+	$j.ajax({
+		type: "GET",
+		url: my_ajax_object.ajax_url,
+        dataType: "json",
+        async: true,
+        data: {
+        	action:'get_restrictions_order',
+            kalkulator_id:kal_id
+            },
+            success: function (data) {
+            	json = JSON.parse(data);
+                for(kategorija in json){
+                	for(var stavke in json[kategorija]){
+                		for(var i = 0; i < json[kategorija][stavke].length; i++){
+                			items.push({
+                				id:json[kategorija][stavke][i].id,
+                				name:json[kategorija][stavke][i].Naziv,
+                				desc:json[kategorija][stavke][i].Opis,
+                				price:json[kategorija][stavke][i].Cena,
+                				restriction:json[kategorija][stavke][i].ogranicenja,
+                                search:json[kategorija][stavke][i].searchable_by,
+                				rank:json[kategorija][stavke][i].rang,
+                                selected:false,
+                                value:json[kategorija][stavke][i].Naziv,
+                			});
+                		}
+                	}
+                	
+                }
+            },
+            error: function (data) {
+                
+            }
+	});
+
+
+    $j('#search').autocomplete({
+		lookup: items,
+        onSelect: function(suggestion){
+            // console.log(suggestion);
+            $j('input[value="'+suggestion.id+'"]').trigger('click');
+            // $j('#search').val('');
+        },
+        beforeRender: function(container){
+            // console.log(container);
+        },
+        formatResults: function(suggestion, currentValue){
+            suggestion = 'sug';
+            currentValue = 'cv';
+        }
     });
 
 } );

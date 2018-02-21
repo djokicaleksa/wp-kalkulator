@@ -19,7 +19,8 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 
 	
 				
-		$html .= '<table id="example" class="display" cellspacing="0">
+		$html .= '<table id="" class="display" cellspacing="0">
+				<input id="search" type="text">
 		        <thead>
 		            <tr>
 		            	<th></th>
@@ -44,24 +45,18 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		        </tfoot>
 		        <tbody>
 		        	<input type="text" style="display: none;" name="kalkulator_id" id="kalkulator_id" value="'.$content.'">';
-			            
+			            $i=0;
 			            	foreach($items as $item1_key => $item1_value){
 								$html .=
 								'<tr>
-									<td></td>
-									<td  style="display: none;"></td>
-									<td>' . parse_unicode($item1_key) . '</td>
-									<td></td>
-									<td style="display: none;" ></td>
-									<td style="display: none;" ></td>
-									<td style="display: none;" ></td>
+									<td colspan="8"><a class="link" data-id="'.$i.'">' . parse_unicode($item1_key) . '</a></td>
 								</tr>';
 						
 
 								foreach ($item1_value as $item2) {
 									foreach ($item2 as $item3) {
 
-									$html .= '<tr>
+									$html .= '<tr id="'.$i.'" class="hide">
 											<td><input type="checkbox" value="'.$item3['id'].'" class="terapija" name="terapija[]"></td>
 											<td id="name">'.parse_unicode($item3['Naziv']).'</td>
 											<td style="display: none;" id="desc">'.parse_unicode($item3['Opis']).'</td>
@@ -70,19 +65,10 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 											<td style="display: none;" id="ogranicenja">'.parse_unicode($item3['ogranicenja']).'</td>
 											<td style="display: none;" id="id">'.$item3['id'].'</td>
 											<td style="display: none;"><input type="hidden" class="rank" value="'.$item3['rang'].'"> </td>
-										</tr style="display: none;" >
-
-		<!-- 								<tr id="'.$item3['id'].'">
-											<td style="display: none;" ></td>
-											<td style="display: none;" ></td>
-											<td style="display: none;"><td>
-											<td style="display: none;" ></td>
-											<td style="display: none;"></td>
-											<td>'.parse_unicode($item3['ogranicenja']).'</td>
-											<td style="display: none;"></td>
-										</tr> -->';	
+										</tr>';	
 									}
 								}
+								$i++;
 							}
 
 			    $html .= '</tbody>
@@ -96,6 +82,43 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 			    		</ul>
 			    	</div> -->
 			    </table>';
+
+
+
+			    $html2 = '<div id="accordion">';
+
+			    foreach ($items as $item1_key => $item1_value) {
+			    	$html2 .=
+			    		' <div class="card">
+					    <div class="card-header" id="headingOne">
+					      <h5 class="mb-0">
+					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					          '. parse_unicode($item1_key) .'
+					        </button>
+					      </h5>
+					    </div>
+
+					    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+							<div class="card-body">';
+
+
+					    foreach ($item1_value as $item2) {
+							foreach ($item2 as $item3) {
+								$html2 .= 'sd';
+								
+								        
+								     
+							}
+						}
+
+						$html2 .= 
+						' 		</div>
+							</div>
+						</div>';
+
+			    }
+
+			   //  $html2 .= '</div>'
 
 			    return $html;
 	

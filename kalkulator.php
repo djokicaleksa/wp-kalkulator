@@ -90,11 +90,13 @@ function dj_admin_enqueue_scripts() {
 		wp_enqueue_style('dj-select2', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css');
 
 		wp_enqueue_style( 'dj-custom-css', plugins_url( 'css/custom.css', __FILE__ ) );
+
 		wp_register_script('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
 		wp_enqueue_script('prefix_bootstrap');
 
 		wp_register_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
 		wp_enqueue_style('prefix_bootstrap');
+
 		wp_enqueue_script('dynamic-form', plugins_url( 'js/dynamic-form.js', __FILE__ ), array( 'jquery'), '154848', true );
 		wp_enqueue_script( 'reorder-js', plugins_url( 'js/reorder.js', __FILE__ ), array( 'jquery', 'jquery-ui-sortable' ), '20150626', true );
 
@@ -103,6 +105,8 @@ function dj_admin_enqueue_scripts() {
 
     	wp_localize_script( 'ajax-script', 'my_ajax_object',
             array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+
+
 		
 
 	}
@@ -141,7 +145,12 @@ function dj_front_enqueruer_scripts(){
 	wp_enqueue_script('searchable-table', plugins_url( 'js/searchable-table.js', __FILE__ ), array( 'jquery', 'data-tables-js' ), '20150204', true );
 	wp_enqueue_script('kalkulator-front', plugins_url( 'js/kalkulator-front.js', __FILE__ ), array( 'jquery'), '20171223', true );
 	wp_enqueue_script('form-calculator', plugins_url( 'js/form-calculator.js', __FILE__ ), array( 'jquery'), '20171224', true );
+	// wp_enqueue_script( 'jquery-ui-autocomplete' );
+	wp_enqueue_script('autocomplete', plugins_url( 'js/jquery.autocomplete.js', __FILE__ ), array( 'jquery' ), '20150204', true );
 
+
+	wp_enqueue_style('jquery-ui-autocomplete', plugins_url( 'css/jquery-ui.min.css', __FILE__ ));
+	wp_enqueue_style('jquery-ui-autocomplete', plugins_url( 'libs/css/jquery-ui/jquery-ui.structure.min.css', __FILE__ ));
 	
 		wp_enqueue_script( 'ajax-script', plugin_dir_path('/js/kalkulator-front.js', __FILE__), array('jquery') );
     	wp_localize_script( 'ajax-script', 'my_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
@@ -152,10 +161,3 @@ function dj_front_enqueruer_scripts(){
 }
 
 add_action('wp_enqueue_scripts', 'dj_front_enqueruer_scripts');
-
-     
-
-function dj_set_content_type(){
-    return "text/html";
-}
-add_filter( 'wp_mail_content_type','dj_set_content_type' );
