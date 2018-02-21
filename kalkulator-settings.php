@@ -76,21 +76,22 @@ function dj_save_kalkulator_meta($post){
 add_action('wp_ajax_save_kalkulator_meta', 'dj_save_kalkulator_meta');
 
 function dj_get_kalkulator_meta(){
+
 	$kalkulator_id = (int) $_GET['kalkulator_id'];
 	
 	$post_meta_items = get_post_meta($kalkulator_id, 'items');
 	return wp_send_json(json_decode($post_meta_items[0], true));
-	
 }
-
-add_action('wp_ajax_get_kalulator_meta', 'dj_get_kalkulator_meta');
+add_action('wp_ajax_get_kalkulator_meta', 'dj_get_kalkulator_meta');
 
 function dj_get_restrictions_order(){
+
 	$kalkulator_id = (int) $_GET['kalkulator_id'];
 
 	$post_meta_items = get_post_meta($kalkulator_id, 'items');
 	$response = [];
 	$i = 0;
+	
 	return wp_send_json(json_decode($post_meta_items[0], true));
 	foreach ($post_meta_items[0] as $kategorije) {
 		
@@ -105,6 +106,7 @@ function dj_get_restrictions_order(){
 }
 
 add_action('wp_ajax_get_restrictions_order', 'dj_get_restrictions_order');
+add_action('wp_ajax_nopriv_get_restrictions_order', 'dj_get_restrictions_order');
 
 function dj_edit_category_calculator(){
 	$old_name = $_POST['old_name'];

@@ -204,12 +204,6 @@ table tr td a{
   cursor: pointer;
 }
 
-ul {
-  border: 1px #c1c1c1 solid;
-  background-color: #fff;
-}
-
-
 .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
 .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
 .autocomplete-selected { background: #F0F0F0; }

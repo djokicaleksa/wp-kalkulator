@@ -106,6 +106,9 @@ function dj_admin_enqueue_scripts() {
     	wp_localize_script( 'ajax-script', 'my_ajax_object',
             array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 
+    	wp_localize_script( 'dynamic-form', 'my_ajax_object',
+            array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+
 
 		
 
@@ -146,17 +149,19 @@ function dj_front_enqueruer_scripts(){
 	wp_enqueue_script('kalkulator-front', plugins_url( 'js/kalkulator-front.js', __FILE__ ), array( 'jquery'), '20171223', true );
 	wp_enqueue_script('form-calculator', plugins_url( 'js/form-calculator.js', __FILE__ ), array( 'jquery'), '20171224', true );
 	// wp_enqueue_script( 'jquery-ui-autocomplete' );
-	wp_enqueue_script('autocomplete', plugins_url( 'js/jquery.autocomplete.js', __FILE__ ), array( 'jquery' ), '20150204', true );
+	wp_enqueue_script('autocomplete', plugins_url( 'js/jquery.autocomplete.js', __FILE__ ), array( 'jquery' ), '20180221', true );
 
 
 	wp_enqueue_style('jquery-ui-autocomplete', plugins_url( 'css/jquery-ui.min.css', __FILE__ ));
 	wp_enqueue_style('jquery-ui-autocomplete', plugins_url( 'libs/css/jquery-ui/jquery-ui.structure.min.css', __FILE__ ));
 	
-		wp_enqueue_script( 'ajax-script', plugin_dir_path('/js/kalkulator-front.js', __FILE__), array('jquery') );
-    	wp_localize_script( 'ajax-script', 'my_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+	wp_localize_script( 'searchable-table', 'search_ajax', array(
+		'ajax_url' => admin_url( 'admin-ajax.php' )
+	));
 
-  //   	wp_enqueue_script( 'custom-ajax-request', '/path/to/settings.js', array( 'jquery' ) );
-		// wp_localize_script( 'custom-ajax-request', 'MyAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) )
+	wp_localize_script( 'kalkulator-front', 'search_ajax', array(
+		'ajax_url' => admin_url( 'admin-ajax.php' )
+	));
 
 }
 

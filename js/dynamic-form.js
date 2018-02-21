@@ -1,7 +1,8 @@
 var $jq = jQuery.noConflict();
 
 $jq(document).ready(function(){
-
+    console.log(ajaxurl);
+    console.log(my_ajax_object);
     $jq('#menuModal').modal();
     menu = {};
     //Ucitavanje menija 
@@ -10,7 +11,7 @@ $jq(document).ready(function(){
         type: "GET",
         url: ajaxurl,
         dataType: "json",
-        data: {action: 'get_kalulator_meta',kalkulator_id:kalkulator_id},
+        data: {action: 'get_kalkulator_meta',kalkulator_id:kalkulator_id},
         success: function (data) {
             if(data !== null){
                 menu = JSON.parse(data);
@@ -22,7 +23,7 @@ $jq(document).ready(function(){
         },
 
         error: function (data) {
-            console.log('Error:', data);
+            // console.log('Error:', data.responseText);
         }
     });
 

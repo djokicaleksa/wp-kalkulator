@@ -141,13 +141,20 @@
 
         var pattern = '(' + utils.escapeRegExChars(currentValue) + ')';
 
-        return suggestion.value
+        var suggestion_item = suggestion.value
             .replace(new RegExp(pattern, 'gi'), '<strong>$1<\/strong>')
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/&lt;(\/?strong)&gt;/g, '<$1>');
+        
+        if(suggestion.selected){
+            var select_option = '<input type="checkbox" value="'+ suggestion.id +'" class="terapija2" name="terapija[]" checked>'; 
+        }else{
+            var select_option = '<input type="checkbox" value="'+ suggestion.id +'" class="terapija2" name="terapija[]">';
+        }
+        return select_option + suggestion_item;
     };
 
     function _formatGroup(suggestion, category) {
@@ -663,6 +670,7 @@
                 that.select(0);
                 return;
             }
+            html += '<ul>'
 
             // Build suggestions inner HTML:
             $.each(that.suggestions, function (i, suggestion) {
@@ -670,9 +678,11 @@
                     html += formatGroup(suggestion, value, i);
                 }
 
-                html += '<div class="' + className + '" data-index="' + i + '">' + formatResult(suggestion, value, i) + '</div>';
+                // html += '<div class="' + className + '" data-index="' + i + '">' + formatResult(suggestion, value, i) + '</div>';
+                html += '<li>' + formatResult(suggestion, value, i) + '</li>';
             });
 
+            html += '</ul>';
             this.adjustContainerWidth();
 
             noSuggestionsContainer.detach();
@@ -762,7 +772,6 @@
         },
 
         signalHint: function (suggestion) {
-            console.log(suggestion);
             var hintValue = '',
                 that = this;
             if (suggestion) {
@@ -848,7 +857,7 @@
 
         select: function (i) {
             var that = this;
-            that.hide();
+            // that.hide();
             that.onSelect(i);
         },
 

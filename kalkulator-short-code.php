@@ -19,8 +19,10 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 
 	
 				
-		$html .= '<table id="" class="display" cellspacing="0">
-				
+		$html .= '
+		<div>
+			<input id="search" type="text">
+		<table id="" class="display" cellspacing="0">
 		        <thead>
 		            <tr>
 		            	<th></th>
@@ -44,7 +46,6 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		            </tr>
 		        </tfoot>
 		        <tbody>
-		        <tr><td colspan=8><input id="search" type="text"></td></tr>
 		        	<input type="text" style="display: none;" name="kalkulator_id" id="kalkulator_id" value="'.$content.'">';
 			            $i=0;
 			            	foreach($items as $item1_key => $item1_value){
@@ -57,7 +58,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 								foreach ($item1_value as $item2) {
 									foreach ($item2 as $item3) {
 
-									$html .= '<tr id="'.$i.'" class="hide">
+									$html .= '<tr class="hide" data-id="'.$i.'">
 											<td><input type="checkbox" value="'.$item3['id'].'" class="terapija" name="terapija[]"></td>
 											<td id="name">'.parse_unicode($item3['Naziv']).'</td>
 											<td style="display: none;" id="desc">'.parse_unicode($item3['Opis']).'</td>
@@ -82,44 +83,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 			    			
 			    		</ul>
 			    	</div> -->
-			    </table>';
-
-
-
-			    $html2 = '<div id="accordion">';
-
-			    foreach ($items as $item1_key => $item1_value) {
-			    	$html2 .=
-			    		' <div class="card">
-					    <div class="card-header" id="headingOne">
-					      <h5 class="mb-0">
-					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-					          '. parse_unicode($item1_key) .'
-					        </button>
-					      </h5>
-					    </div>
-
-					    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-							<div class="card-body">';
-
-
-					    foreach ($item1_value as $item2) {
-							foreach ($item2 as $item3) {
-								$html2 .= 'sd';
-								
-								        
-								     
-							}
-						}
-
-						$html2 .= 
-						' 		</div>
-							</div>
-						</div>';
-
-			    }
-
-			   //  $html2 .= '</div>'
+			    </table></div>';
 
 			    return $html;
 	

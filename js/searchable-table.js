@@ -6,7 +6,7 @@ $j(document).ready(function() {
 
 	$j.ajax({
 		type: "GET",
-		url: my_ajax_object.ajax_url,
+		url: search_ajax.ajax_url,
         dataType: "json",
         async: true,
         data: {
@@ -27,7 +27,7 @@ $j(document).ready(function() {
                                 search:json[kategorija][stavke][i].searchable_by,
                 				rank:json[kategorija][stavke][i].rang,
                                 selected:false,
-                                value:json[kategorija][stavke][i].Naziv,
+                                value:json[kategorija][stavke][i].Naziv + '  ' + json[kategorija][stavke][i].Cena + ' RSD'
                 			});
                 		}
                 	}
@@ -35,25 +35,25 @@ $j(document).ready(function() {
                 }
             },
             error: function (data) {
-                
+                console.log(data);
             }
 	});
 
 
-    $j('#search').autocomplete({
-		lookup: items,
-        onSelect: function(suggestion){
-            // console.log(suggestion);
-            $j('input[value="'+suggestion.id+'"]').trigger('click');
-            // $j('#search').val('');
-        },
-        beforeRender: function(container){
-            // console.log(container);
-        },
-        formatResults: function(suggestion, currentValue){
-            suggestion = 'sug';
-            currentValue = 'cv';
-        }
-    });
+  //   $j('#search').devbridgeAutocomplete({
+		// lookup: items,
+  //       onSelect: function(suggestion){
+  //           // console.log(suggestion);
+  //           // $j('input[value="'+suggestion.id+'"]').trigger('click');
+  //           // $j('#search').val('');
+  //       },
+  //       beforeRender: function(container){
+  //           // console.log(container);
+  //       },
+  //       formatResults: function(suggestion, currentValue){
+  //           suggestion = 'sug';
+  //           currentValue = 'cv';
+  //       }
+  //   });
 
 } );
