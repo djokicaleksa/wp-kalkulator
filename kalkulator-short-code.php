@@ -20,7 +20,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 	
 				
 		$html .= '<table id="" class="display" cellspacing="0">
-				<input id="search" type="text">
+				
 		        <thead>
 		            <tr>
 		            	<th></th>
@@ -44,6 +44,7 @@ function dj_kalkulator_table_shortcode($atts, $content = null){
 		            </tr>
 		        </tfoot>
 		        <tbody>
+		        <tr><td colspan=8><input id="search" type="text"></td></tr>
 		        	<input type="text" style="display: none;" name="kalkulator_id" id="kalkulator_id" value="'.$content.'">';
 			            $i=0;
 			            	foreach($items as $item1_key => $item1_value){
